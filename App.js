@@ -91,7 +91,23 @@ document.addEventListener('DOMContentLoaded', () => {
         percentage: 6.9,
     }
 
-    //add data function - updates chart and stats
+    //update stats function
+    function updateStats() {
+        sleep.currentWeekly = sleep.currentSum / sleep.currentDays;
+            document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1);
+            let deci = sleep.currentWeekly / sleep.weeklys[sleep.weeklys.length - 1]
+            if (deci >= 1){
+                sleep.sign = '+'
+                sleep.percentage = deci - 1;
+            } else{
+                sleep.sign = '-'
+                sleep.percentage = 1 - deci;
+            }
+            document.querySelector('#sign').textContent = sleep.sign;
+            document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2);
+    }
+
+    //add data function - updates chart & sleep object
     function addData(chart) {
         let data = document.querySelector('#data').value;
         if(chart.data.labels.length < 7 && data <=24 && data != '') {
@@ -102,9 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chart.update()
             sleep.currentSum += parseFloat(data);
             sleep.currentDays++;
-            sleep.currentWeekly = sleep.currentSum / sleep.currentDays;
-            document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1);
-            console.log(document.querySelector('#weeklyAvg'))
+            updateStats();
         }
     }
     //add data button
@@ -115,10 +129,14 @@ document.addEventListener('DOMContentLoaded', () => {
     //remove data function
     function removeData(chart) {
         chart.data.labels.pop();
+        let deleted;
         chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
+            deleted = dataset.data.pop();
         });
         chart.update();
+        sleep.currentSum -= deleted;
+        sleep.currentDays--;
+        updateStats();
     }
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {
