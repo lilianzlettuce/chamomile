@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let sec1 = document.querySelector('#section1')
     let sec2 = document.querySelector('#section2')
     let sec3 = document.querySelector('#section3')
+    let breathe = document.querySelector('#title0')
 
     //slide btn clicked
     document.querySelector('#slideBtn').addEventListener('click', (e) => {
@@ -17,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 sec1.classList.remove('appear')
                 sec1.classList.add('disappear')
+                breathe.classList.remove('disappearSlow')
+                breathe.classList.add('appearSlow')
             }, 800)
             side = 2;
         } else {
@@ -30,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 sec1.classList.remove('disappear')
                 sec1.classList.add('appear')
+                breathe.classList.remove('appearSlow')
+                breathe.classList.add('disappear')
             }, 300)
             side = 1;
         }
@@ -78,15 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //add data function
     function addData(chart) {
-        chart.data.labels.push(document.querySelector('#label').value)
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(document.querySelector('#data').value)
-        })
-        chart.update()
+        if(chart.data.labels.length < 7) {
+            chart.data.labels.push(document.querySelector('#label').value)
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(document.querySelector('#data').value)
+            })
+            chart.update()
+        }
     }
     //add data button
     document.querySelector('#addDataBtn').addEventListener('click', () => {
-        addData(myChart)
+        if (document.querySelector('#data').value <= 24) {
+            addData(myChart)
+        }
     })
 
     //remove data function
