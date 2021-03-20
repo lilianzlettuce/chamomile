@@ -48,7 +48,7 @@ h2{
 
 h3{
     font-size: 4rem;
-    font-weight: 500;
+    font-weight: 300;
     margin: 5px;
 }
 
@@ -79,6 +79,7 @@ div{
     color: var(--main);
     background-color: white;
     width: min-content;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.419);
 }
 
 .button{
@@ -137,6 +138,14 @@ div{
     align-items: center;
     text-align: center;
     width: 50vw;
+}
+
+.stats-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 #section3{
