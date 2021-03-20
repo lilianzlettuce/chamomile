@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+            labels: ['S', 'M', 'T', 'W', 'T', 'F'],
             datasets: [{
                 label: '# of hours',
-                data: [5, 8, 8, 3, 6, 7, 4],
+                data: [8, 9, 4, 8, 5, 3],
                 backgroundColor: [
                     'rgba(95, 138, 255, 0.3)',
                     'rgba(255, 159, 64, 0.2)',
@@ -81,21 +81,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //add data function
+    //sleep data object
+    let sleep = {
+        weeklys: [5.8],
+        currentWeekly: 6.2,
+        currentDays: 6,
+        currentSum: 37.0,
+        sign: '+', 
+        percentage: 6.9,
+    }
+
+    //add data function - updates chart and stats
     function addData(chart) {
-        if(chart.data.labels.length < 7) {
+        let data = document.querySelector('#data').value;
+        if(chart.data.labels.length < 7 && data <=24 && data != '') {
             chart.data.labels.push(document.querySelector('#label').value)
             chart.data.datasets.forEach((dataset) => {
-                dataset.data.push(document.querySelector('#data').value)
+                dataset.data.push(data)
             })
             chart.update()
+            sleep.currentSum += parseFloat(data);
+            sleep.currentDays++;
+            sleep.currentWeekly = sleep.currentSum / sleep.currentDays;
+            document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1);
+            console.log(document.querySelector('#weeklyAvg'))
         }
     }
     //add data button
     document.querySelector('#addDataBtn').addEventListener('click', () => {
-        if (document.querySelector('#data').value <= 24) {
-            addData(myChart)
-        }
+        addData(myChart)
     })
 
     //remove data function
@@ -109,6 +123,20 @@ document.addEventListener('DOMContentLoaded', () => {
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {
         removeData(myChart)
+    })
+
+    //save data function
+    function saveData(chart) {
+        chart.data.labels = [];
+        chart.data.datasets.forEach((dataset => {
+            dataset.data = [];
+        }))
+        chart.update()
+    }
+    //save data button
+    document.querySelector('#saveBtn').addEventListener('click', () => {
+        saveData(myChart)
+        console.log('test')
     })
 
 })
