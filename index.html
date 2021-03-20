@@ -39,17 +39,17 @@
                 </div>
             </div>
         </div>
-        <div id="slideBtn" class="button">Slide</div>
+        <div id="slideBtn" class="button">&nbsp ⟷ &nbsp</div>
         <div id="section2" class="set2 section">
             <h2 id="title2">Sleep</h2>
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="myChart" width="400" height="300"></canvas>
             <div>
-                <input id="data" type="number" placeholder="Data">
-                <input id="label" type="text" placeholder="Data's Label">
+                <input id="data" type="number" placeholder="Hrs of sleep">
+                <input id="label" type="text" placeholder="Day">
               
-                <button onclick="addData(myChart)">Add Data</button>
-                <button onclick="removeData(myChart)">Remove Data</button>
-                <button onclick="saveCanvas()">Save Chart</button>
+                <div class="button2" id="addDataBtn">Add Data</div>
+                <div class="button2" id="removeDataBtn">Remove Data</div>
+                <div class="button2" id="saveBtn">Save Chart</div>
               </div>
         </div>
         <div id="section3" class="set section">
@@ -59,6 +59,6 @@
         <!--my js-->
         <script src="App.js" charset="utf-8"></script>
         <!--chart.js-->
-        <script src="path/to/chartjs/dist/Chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     </body>
 </html>
