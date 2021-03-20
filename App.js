@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    let side = 1;
+    let side = 1
     let slider = document.querySelector('#slider')
     let sec1 = document.querySelector('#section1')
     let sec2 = document.querySelector('#section2')
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 breathe.classList.remove('disappearSlow')
                 breathe.classList.add('appearSlow')
             }, 800)
-            side = 2;
+            side = 2
         } else {
             slider.classList.remove('slideR')
             slider.classList.add('slideL')
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 breathe.classList.remove('appearSlow')
                 breathe.classList.add('disappear')
             }, 300)
-            side = 1;
+            side = 1
         }
     })
 
@@ -93,32 +93,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //update stats function
     function updateStats() {
-        sleep.currentWeekly = sleep.currentSum / sleep.currentDays;
-            document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1);
-            let deci = sleep.currentWeekly / sleep.weeklys[sleep.weeklys.length - 1]
-            if (deci >= 1){
-                sleep.sign = '+'
-                sleep.percentage = deci - 1;
-            } else{
-                sleep.sign = '-'
-                sleep.percentage = 1 - deci;
-            }
-            document.querySelector('#sign').textContent = sleep.sign;
-            document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2);
+        sleep.currentWeekly = sleep.currentSum / sleep.currentDays
+        document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
+        let deci = sleep.currentWeekly / sleep.weeklys[sleep.weeklys.length - 1]
+        if (deci >= 1){
+            sleep.sign = '+'
+            sleep.percentage = deci - 1
+        } else{
+            sleep.sign = '-'
+            sleep.percentage = 1 - deci
+        }
+        document.querySelector('#sign').textContent = sleep.sign
+        document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
     }
 
     //add data function - updates chart & sleep object
     function addData(chart) {
-        let data = document.querySelector('#data').value;
+        let data = document.querySelector('#data').value
         if(chart.data.labels.length < 7 && data <=24 && data != '') {
             chart.data.labels.push(document.querySelector('#label').value)
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data)
             })
             chart.update()
-            sleep.currentSum += parseFloat(data);
-            sleep.currentDays++;
-            updateStats();
+            sleep.currentSum += parseFloat(data)
+            sleep.currentDays++
+            updateStats()
         }
     }
     //add data button
@@ -128,15 +128,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //remove data function
     function removeData(chart) {
-        chart.data.labels.pop();
-        let deleted;
+        chart.data.labels.pop()
+        let deleted
         chart.data.datasets.forEach((dataset) => {
-            deleted = dataset.data.pop();
-        });
-        chart.update();
-        sleep.currentSum -= deleted;
-        sleep.currentDays--;
-        updateStats();
+            deleted = dataset.data.pop()
+        })
+        chart.update()
+        sleep.currentSum -= deleted
+        sleep.currentDays--
+        updateStats()
     }
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {
@@ -145,16 +145,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //save data function
     function saveData(chart) {
-        chart.data.labels = [];
-        chart.data.datasets.forEach((dataset => {
-            dataset.data = [];
-        }))
-        chart.update()
+        if (sleep.currentDays == 7) {
+            chart.data.labels = []
+            chart.data.datasets.forEach((dataset => {
+                dataset.data = []
+            }))
+            chart.update()
+            sleep.weeklys.push(sleep.currentWeekly)
+            sleep.currentDays = 0
+            sleep.currentSum = 0
+            sleep.currentWeekly = 0
+            sleep.percentage = 0.0
+            sleep.sign = '+'
+            document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
+            document.querySelector('#sign').textContent = sleep.sign
+            document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
+        }
     }
     //save data button
     document.querySelector('#saveBtn').addEventListener('click', () => {
         saveData(myChart)
-        console.log('test')
     })
 
 })
