@@ -6,9 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let sec2 = document.querySelector('#section2')
     let sec3 = document.querySelector('#section3')
     let breathe = document.querySelector('#title0')
+    let slideBtn = document.querySelector('#slideBtn')
 
     //slide btn clicked
-    document.querySelector('#slideBtn').addEventListener('click', (e) => {
+    slideBtn.addEventListener('click', (e) => {
         if (side === 1) {
             slider.classList.remove('slideL')
             slider.classList.add('slideR')
@@ -16,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sec3.classList.remove('disappear')
             sec3.classList.add('appear')
             setTimeout(() => {
+                slideBtn.classList.remove('slideBtn')
+                slideBtn.classList.add('blueBtn')
                 sec1.classList.remove('appear')
                 sec1.classList.add('disappear')
                 breathe.classList.remove('disappearSlow')
@@ -26,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.classList.remove('slideR')
             slider.classList.add('slideL')
             sec3.style.zIndex = '0'
+            slideBtn.classList.remove('blueBtn')
+            slideBtn.classList.add('slideBtn')
             setTimeout(() => {
                 sec3.classList.remove('appear')
                 sec3.classList.add('disappear')
