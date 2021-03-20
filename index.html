@@ -6,7 +6,7 @@
         <link rel="icon" type="image/x-icon" href="favicon.ico"/>
         <!--fonts-->
         <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Caveat&family=Cutive+Mono&family=Dancing+Script&family=Flamenco&family=Josefin+Slab&family=Quicksand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Caveat&family=Cutive+Mono&family=Dancing+Script&family=Flamenco&family=Montserrat&family=Josefin+Slab&family=Quicksand&display=swap" rel="stylesheet">
         <!--FontAwesome Icons-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <!--my css-->
@@ -27,28 +27,38 @@
             <div id="profile-flex-2">
                 <div class="stats-flex">
                     <h4 class="label">Age</h4>
-                    <h2 style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.419);">41</h2>
+                    <h2 class="stats">26</h2>
                 </div>
                 <div class="stats-flex">
                     <h4 class="label">Weight</h4>
-                    <h2 style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.419);">125</h2>
+                    <h2 class="stats">125</h2>
                 </div>
                 <div class="stats-flex">
                     <h4 class="label">Height</h4>
-                    <h2 style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.419);">5'8''</h2>
+                    <h2 class="stats">5'8''</h2>
                 </div>
             </div>
         </div>
         <div id="slideBtn" class="button">Slide</div>
         <div id="section2" class="set2 section">
-            <h2 id="title2">Charts</h2>
-            
+            <h2 id="title2">Sleep</h2>
+            <canvas id="myChart" width="400" height="400"></canvas>
+            <div>
+                <input id="data" type="number" placeholder="Data">
+                <input id="label" type="text" placeholder="Data's Label">
+              
+                <button onclick="addData(myChart)">Add Data</button>
+                <button onclick="removeData(myChart)">Remove Data</button>
+                <button onclick="saveCanvas()">Save Chart</button>
+              </div>
         </div>
         <div id="section3" class="set section">
-            <h1 id="title3">new thing</h1>
+            <h1 id="title3">meditate</h1>
         </div>
 
         <!--my js-->
         <script src="App.js" charset="utf-8"></script>
+        <!--chart.js-->
+        <script src="path/to/chartjs/dist/Chart.js"></script>
     </body>
 </html>
