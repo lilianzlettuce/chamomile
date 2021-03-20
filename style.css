@@ -59,6 +59,27 @@ div{
     font-size: 1.6rem;
 }
 
+#slider1{
+    background-color: var(--main);
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+}
+.slider{
+    animation: slider-anim 2s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slider-anim{
+    0%{
+        left: 0px;
+    }
+    100%{
+        left: 50vw;
+    }
+}
+
 .home-flex-main{
     display: flex;
     padding: 0rem 0rem 10rem 0rem;
@@ -70,20 +91,22 @@ div{
 
 .blah:hover{
     cursor: pointer;
+    transition: 1s ease-out;
 }
 
-.c1{
-    animation: cAnim1 ease 3s 0s 1;
+.color{
+    position: relative;
+    color: black;
+    animation: colo-anim 3s linear 0s infinite;
 }
-@keyframes cAnim1{
+@keyframes color-anim{
+    0%{
+        color: black;
+    }
     50%{
-        width: 20rem;
-        height: 20rem;
-        border-width: 5px;
-        background-color: rgb(255, 255, 255);
-        transform: rotate(90deg);
+        color: rgb(255, 9, 9);
     }
     100%{
-        transform: rotate(270deg);
+        color: black;
     }
 }
