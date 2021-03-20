@@ -1,5 +1,5 @@
 :root {
-    --main: rgb(134, 173, 255);
+    --main: rgb(255, 150, 118);
     --width: 550px;
 }
 
@@ -61,14 +61,16 @@ div{
 
 #slider1{
     background-color: var(--main);
+}
+.slider{
     position: absolute;
     width: 50vw;
     height: 100vh;
     top: 0px;
     left: 0px;
 }
-.slider{
-    animation: slider-anim 2s ease-in-out 0s;
+.slide{
+    animation: slider-anim 1.5s ease-in-out 0s;
     animation-fill-mode: forwards;
 }
 @keyframes slider-anim{
@@ -78,6 +80,17 @@ div{
     100%{
         left: 50vw;
     }
+}
+
+#title1{
+    position: relative;
+    color: white;
+    z-index: 10;
+}
+
+#title2{
+    position: relative;
+    color: var(--main);
 }
 
 .home-flex-main{

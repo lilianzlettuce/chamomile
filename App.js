@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-//click event
-document.querySelector('').addEventListener('click', (e) => {
-    
-})
+    //click event
+    document.querySelector('#slider1').addEventListener('click', (e) => {
+        document.querySelector('#slider1').classList.add('slide')
+    })
 
 
 
