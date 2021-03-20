@@ -113,6 +113,61 @@ div{
     z-index: 0;
 }
 
+.slideR{
+    animation: slideR-anim 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideR-anim{
+    0%{
+        left: 0px;
+    }
+    100%{
+        left: 50vw;
+    }
+}
+
+.slideL{
+    
+    animation: slideL-anim 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideL-anim{
+    0%{
+        left: 50vw;
+    }
+    100%{
+        left: 0vw;
+    }
+}
+
+.disappear{
+    opacity: 100%;
+    animation: disappear-anim .5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes disappear-anim{
+    0%{
+        opacity: 100%;
+    }
+    100%{
+        opacity: 0%;
+    }
+}
+
+.appear{
+    opacity: 0%;
+    animation: appear-anim .5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes appear-anim{
+    0%{
+        opacity: 0%;
+    }
+    100%{
+        opacity: 100%;
+    }
+}
+
 #section1{
     z-index: 10;
     transition: 1s ease-in;
@@ -120,6 +175,12 @@ div{
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+#title1{
+    position: relative;
+    color: white;
+    margin: 50px 0px;
 }
 
 #profile-flex-1{
@@ -148,6 +209,22 @@ div{
     text-align: center;
 }
 
+#title2{
+    position: relative;
+    color: var(--main);
+}
+
+#section2{
+    z-index: -10;
+}
+
+#slideBtn{
+    position: absolute;
+    top: 50vh;
+    left: 46.7vw;
+    z-index: 500 !important;
+}
+
 #section3{
     z-index: 0;
 }
@@ -168,75 +245,9 @@ div{
     left: 50vw;
 }
 
-.slide{
-    animation: slider-anim 1.5s ease-in-out 0s;
-    animation-fill-mode: forwards;
-}
-@keyframes slider-anim{
-    0%{
-        left: 0px;
-    }
-    100%{
-        left: 50vw;
-    }
-}
-
-.disappear{
-    opacity: 100%;
-    animation: disappear-anim .5s ease-in-out 0s;
-    animation-fill-mode: forwards;
-}
-@keyframes disappear-anim{
-    0%{
-        opacity: 100%;
-    }
-    100%{
-        opacity: 0%;
-    }
-}
-
-#title1{
-    position: relative;
-    color: white;
-    margin: 50px 0px;
-}
-
-#title2{
-    position: relative;
-    color: var(--main);
-}
-
 #title3{
     position: relative;
     color: var(--main);
-}
-
-.home-flex-main{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.blah:hover{
-    cursor: pointer;
-    transition: 1s ease-out;
-}
-
-.color{
-    position: relative;
-    color: black;
-    animation: colo-anim 3s linear 0s infinite;
-}
-@keyframes color-anim{
-    0%{
-        color: black;
-    }
-    50%{
-        color: rgb(255, 9, 9);
-    }
-    100%{
-        color: black;
-    }
 }
 
 .deco{
