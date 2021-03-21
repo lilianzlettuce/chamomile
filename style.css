@@ -4,6 +4,7 @@
     --white: white;
     --sub: rgb(112, 139, 255);
     --width: 550px;
+    --blah: rgb(255, 179, 80);
 }
 
 html{
@@ -81,6 +82,7 @@ div{
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 #login-deco{
@@ -139,6 +141,14 @@ div{
     }
 }
 
+#create-acct{
+    color: var(--main);
+    text-decoration: underline;
+    font-weight: 300;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
 #login-title{
     margin: 15px;
 }
@@ -174,6 +184,83 @@ div{
     border-color: white;
     color: white !important;
     background-color: var(--main);
+}
+
+#logout-page{
+    background-color: white;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 400;
+}
+
+.logout-text {
+    font-size: 2.5rem;
+    font-weight: 200;
+}
+
+.logout-input{
+    border: 0px solid black;
+    font-size: 2.2rem;
+    font-weight: 200;
+    width: 53px;
+    margin: 0;
+}
+
+#logout-flex-1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 70vh;
+}
+
+#btn-flexbox{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#logout-flex-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 80vh;
+}
+
+.usableBtn{
+    background-color: rgba(49, 49, 49, 0.884);
+    color: white;
+    cursor: pointer;
+    transition: .3s ease-in;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1.8rem;
+    font-weight: 300;
+    text-align: center;
+}
+.usableBtn:active{
+    background-color: rgb(160, 160, 160);
+}
+
+.unusableBtn{
+    background-color: rgb(202, 202, 202);
+    color: white;
+    cursor: auto;
+    transition: .5s ease-in;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1.8rem;
+    font-weight: 300;
 }
 
 #circles{
@@ -558,7 +645,7 @@ div{
     position: absolute;
     top: 50vh;
     left: 46.7vw;
-    z-index: 400 !important;
+    z-index: 300 !important;
     font-weight: bolder;
 }
 
@@ -598,6 +685,9 @@ input{
 }
 input:hover{
     cursor: pointer;
+}
+input:active,input:focus{
+    border: 1px solid rgb(199, 199, 199);
 }
 
 #data-flex-0{
