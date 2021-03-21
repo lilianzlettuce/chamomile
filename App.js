@@ -197,4 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveData(myChart)
     })
 
+    // ------LINE OF DEATH------ DONT GO ABOVE THIS LINE OR ELSE---------
+
+    // ------LINE OF DEATH 2.0----- DONT GO BELOW THIS LINE OR ELSE-------
 })
