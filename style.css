@@ -85,10 +85,58 @@ div{
 
 #login-deco{
     background-color: var(--main);
-    width: 700px;
-    height: 700px;
-    top: -200px;
-    left: -200px;
+    width: 800px;
+    height: 800px;
+    top: 10vh;
+    left: -10vw;
+    animation: login-circle1 6s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes login-circle1{
+    100%{
+        width: 700px;
+        height: 700px;
+        top: -16vh;
+        left: -8vw;
+    }
+}
+
+#login-deco2{
+    background-color: rgb(255, 215, 106);
+    width: 1500px;
+    height: 1500px;
+    top: 85vh;
+    left: 65vw;
+    border-radius: 3000px;
+    animation: login-circle2 9s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes login-circle2{
+    100%{
+        width: 1500px;
+        height: 1500px;
+        top: 70vh;
+        left: 10vw;
+    }
+}
+
+#login-deco3{
+    background-color: rgb(170, 210, 255);
+    width: 400px;
+    height: 400px;
+    top: -60vh;
+    left: 100vw;
+    border-radius: 3000px;
+    animation: login-circle3 12s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes login-circle3{
+    100%{
+        width: 700px;
+        height: 700px;
+        top: -45vh;
+        left: 50vw;
+    }
 }
 
 #login-title{
@@ -120,7 +168,7 @@ div{
     background-color: white;
     cursor: pointer;
     width: 200px;
-    border-width: 2px;
+    border-width: 1px;
 }
 #loginBtn:active{
     border-color: white;
