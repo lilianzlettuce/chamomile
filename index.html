@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="slideBtn2" class="button">&nbsp ⟷ &nbsp</div>
         <div id="login-page">
             <div class="deco" id="login-deco"></div>
             <div class="deco" id="login-deco2"></div>
@@ -25,25 +26,23 @@
                 <p id="create-acct">Create an account</p>
             </div>
         </div>
-        <div class="" id="">
-            <h3>title</h3>
-            <div id="logoutBtn" class="button">Logout</div>
-        </div>
 
         <div id="logout-page">
+            <div id="logoutBtn" class="button">Logout</div>
             <div id="logout-flex-1" class="section">
                 <div class="logout-text">Monthly Goal</div>
                 <div class="logout-text">Sleep: &nbsp &nbsp
-                    <input type="text" placeholder="7.4" class="logout-input" id="sleep-goal" /> 
+                    <input type="text" placeholder="7.4" class="logout-input" id="sleepGoal" /> 
                     hrs
                 </div>
                 <div class="logout-text">Meditation: &nbsp &nbsp
-                    <input type="text" placeholder="4.0" class="logout-input" id="medit-goal" /> 
+                    <input type="text" placeholder="4.0" class="logout-input" id="meditGoal" /> 
                     mins
                 </div>
+                <div class="logout-text">Days left: <span id="daysLeft">30</span></div>
                 <div id="btn-flexbox">
-                    <div class="usableBtn">Start</div>
-                    <div class="usableBtn">Restart</div>
+                    <div class="unusableBtn" id="goalBtn">Start</div>
+                    <div class="usableBtn" id="restartBtn">Restart</div>
                 </div>
             </div>
             <div id="logout-flex-2" class="section">

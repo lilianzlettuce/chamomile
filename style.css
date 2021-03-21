@@ -186,11 +186,19 @@ div{
     background-color: var(--main);
 }
 
+#slideBtn2{
+    z-index: 450;
+    position: absolute;
+    top: -25px;
+    left: 47vw;
+    transform: rotate(90deg);
+}
+
 #logout-page{
     background-color: white;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: -100vh;
+    left: 0vw;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -198,6 +206,12 @@ div{
     justify-content: space-around;
     align-items: center;
     z-index: 400;
+}
+
+#logoutBtn{
+    position: absolute;
+    top: 3vh;
+    left: 2vw;
 }
 
 .logout-text {

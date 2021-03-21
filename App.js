@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let user = userCredential.user;
                 let loginPage = document.querySelector('#login-page')
                 loginPage.classList.add('disappearSlow')
+                loginPage.classList.remove('appearSlow')
                 setTimeout(() => {
                     loginPage.style.zIndex = -10
                 }, 1500)
@@ -36,6 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //logout function
     document.querySelector('#logoutBtn').addEventListener('click', () => {
         firebase.auth().signOut()
+        let loginPage = document.querySelector('#login-page')
+        loginPage.classList.remove('disappearSlow')
+        loginPage.classList.add('appearSlow')
+        loginPage.style.zIndex = 500
     })
 
     let side = 1
@@ -149,25 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    var ctx2 = document.querySelector('#goalChart').getContext('2d')
-    var sleepChart = new Chart(ctx2, {
-        type: 'doughnut',
-        data: {
-            labels: ['Hours Needed', 'Hours Completed'],
-            datasets: [{
-                data: [8, 9],
-                backgroundColor: [
-                    'rgb(255, 166, 0, 0.3)',
-                    'rgb(255, 166, 0)'
-                ],
-                borderColor: [],
-                borderWidth: 1
-            }]
-        },
-        options: {
-        }
-    })
-
     //sleep data object (hrs)
     let sleep = {
         weeklys: [5.8],
@@ -178,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         percentage: 6.9,
         currentMonthly: 0.0,
         monthlys: [],
+        goal: 8.0,
     }
 
     //meditation data object (mins)
@@ -223,6 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //add data button
     document.querySelector('#addDataBtn').addEventListener('click', () => {
         addData(sleepChart)
+        let data = parseFloat(document.querySelector('#data').value)
+        if (data >= sleep.goal) {
+            goalChart.data.datasets.data = [11, 1]
+            goalChart.update()
+        }
     })
 
     //remove data function
@@ -266,7 +258,47 @@ document.addEventListener('DOMContentLoaded', () => {
         saveData(sleepChart)
     })
 
-    // ------LINE OF DEATH------ DONT GO ABOVE THIS LINE OR ELSE---------
+    document.querySelector('#sleepGoal').value = '8.0'
+    document.querySelector('#meditGoal').value = '5'
 
-    // ------LINE OF DEATH 2.0----- DONT GO BELOW THIS LINE OR ELSE-------
+    var ctx2 = document.querySelector('#goalChart').getContext('2d')
+    var goalChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Hours Needed', 'Hours Completed'],
+            datasets: [{
+                data: [9, 3],
+                backgroundColor: [
+                    'rgb(255, 166, 0, 0.3)',
+                    'rgb(255, 166, 0)'
+                ],
+                borderColor: [],
+                borderWidth: 1
+            }]
+        },
+        options: {
+        }
+    })
+
+    //start goal btn
+    goalBtn = document.querySelector('#goalBtn')
+    goalBtn.addEventListener('click', () => {
+        goalBtn.classList.remove('usableBtn')
+        goalBtn.classList.add('unusableBtn')
+        document.querySelector('#daysLeft').textContent = '31'
+    })
+
+    //restart goal btn
+    restartBtn = document.querySelector('#restartBtn')
+    restartBtn.addEventListener('click', () => {
+        goalBtn.classList.add('usableBtn')
+        goalBtn.classList.remove('unusableBtn')
+        goalChart.chart.data.datasets.forEach((dataset => {
+            dataset.data = [12, 0]
+        }))
+        goalChart.update()
+        document.querySelector('#sleepGoal').value = ''
+        document.querySelector('#meditGoal').value = ''
+    })
+
 })
