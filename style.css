@@ -72,6 +72,62 @@ div{
     font-size: 1.6rem;
 }
 
+#login-page{
+    background-color: rgb(255, 255, 255);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-deco{
+    background-color: var(--main);
+    width: 700px;
+    height: 700px;
+    top: -200px;
+    left: -200px;
+}
+
+#login-title{
+    margin: 15px;
+}
+
+#login-box{
+    z-index: 520;
+    border-radius: 500px;
+    background-color: rgb(255, 255, 255);
+    padding: 50px;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.login-input{
+    width: 200px;
+    height: 39px;
+}
+
+#loginBtn{
+    font-size: 1.6rem;border-color: var(--main);
+    font-weight: 400;
+    color: var(--main);
+    background-color: white;
+    cursor: pointer;
+    width: 200px;
+    border-width: 2px;
+}
+#loginBtn:active{
+    border-color: white;
+    color: white !important;
+    background-color: var(--main);
+}
+
 #circles{
     opacity: 0%;
 }
@@ -242,7 +298,7 @@ div{
 }
 
 #circle7{
-    left: 85vw;
+    left: 86vw;
     top: 22vh;
 }
 
@@ -454,7 +510,7 @@ div{
     position: absolute;
     top: 50vh;
     left: 46.7vw;
-    z-index: 500 !important;
+    z-index: 400 !important;
     font-weight: bolder;
 }
 
