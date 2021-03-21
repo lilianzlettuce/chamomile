@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((userCredential) => {
                 //signed in
                 let user = userCredential.user;
+                let loginPage = document.querySelector('#login-page')
+                loginPage.classList.add('disappearSlow')
+                setTimeout(() => {
+                    loginPage.style.zIndex = -10
+                }, 1500)
             })
             .catch(function (error) {
                 // Handle Errors here.
@@ -52,12 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let c5 = document.querySelector('#circle5')
         let c6 = document.querySelector('#circle6')
         setTimeout(() => {
-            c1.style.animation = 'circle-anim 12s ease-in-out 0s'
-            c2.style.animation = 'circle-anim2 12s ease-in-out 0s'
-            c3.style.animation = 'circle-anim3 12s ease-in-out 0s'
-            c4.style.animation = 'circle-anim4 12s ease-in-out 0s'
-            c5.style.animation = 'circle-anim5 12s ease-in-out 0s'
-            c6.style.animation = 'circle-anim6 12s ease-in-out 0s'
+            c1.style.animation = 'circle-anim 12s ease-in-out 0s infinite'
+            c2.style.animation = 'circle-anim2 12s ease-in-out 0s infinite'
+            c3.style.animation = 'circle-anim3 12s ease-in-out 0s infinite'
+            c4.style.animation = 'circle-anim4 12s ease-in-out 0s infinite'
+            c5.style.animation = 'circle-anim5 12s ease-in-out 0s infinite'
+            c6.style.animation = 'circle-anim6 12s ease-in-out 0s infinite'
         }, 500)
     })
 
@@ -104,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     //initializing chart
-    var ctx = document.querySelector('#myChart').getContext('2d')
-    var myChart = new Chart(ctx, {
+    var ctx = document.querySelector('#sleepChart').getContext('2d')
+    var sleepChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['S', 'M', 'T', 'W', 'T', 'F'],
@@ -141,6 +146,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }]
             }
+        }
+    })
+
+    var ctx2 = document.querySelector('#goalChart').getContext('2d')
+    var sleepChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Hours Needed', 'Hours Completed'],
+            datasets: [{
+                data: [8, 9],
+                backgroundColor: [
+                    'rgb(255, 166, 0, 0.3)',
+                    'rgb(255, 166, 0)'
+                ],
+                borderColor: [],
+                borderWidth: 1
+            }]
+        },
+        options: {
         }
     })
 
@@ -198,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //add data button
     document.querySelector('#addDataBtn').addEventListener('click', () => {
-        addData(myChart)
+        addData(sleepChart)
     })
 
     //remove data function
@@ -215,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {
-        removeData(myChart)
+        removeData(sleepChart)
     })
 
     //save data function
@@ -239,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //save data button
     document.querySelector('#saveBtn').addEventListener('click', () => {
-        saveData(myChart)
+        saveData(sleepChart)
     })
 
     // ------LINE OF DEATH------ DONT GO ABOVE THIS LINE OR ELSE---------
