@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             c4.style.animation = 'circle-anim4 12s ease-in-out 0s'
             c5.style.animation = 'circle-anim5 12s ease-in-out 0s'
             c6.style.animation = 'circle-anim6 12s ease-in-out 0s'
-        }, 1000)
+        }, 500)
     })
 
     //slide btn clicked
