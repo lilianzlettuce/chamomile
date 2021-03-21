@@ -13,6 +13,21 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="login-page">
+            <div class="deco" id="login-deco"></div>
+            <div class="deco" id="login-deco2"></div>
+            <div class="deco" id="login-deco3"></div>
+            <div id="login-box">
+                <h4 id="login-title">Sign in to Slide</h4>
+                <input type="email" placeholder="Email" class="login-input" id="email" />
+                <input type="password" placeholder="Password" class="login-input" id="password">
+                <div id="loginBtn" class="button">Login</div>
+            </div>
+        </div>
+        <div class="" id="">
+            <h3>title</h3>
+            <div id="logoutBtn" class="button">Logout</div>
+        </div>
 
         <div class="deco" id="deco2"></div>
         <div class="deco" id="deco3"></div>
@@ -24,7 +39,7 @@
         <div id="section1" class="set section">
             <div id="profile-flex-1">
                 <i class="fas fa-user-secret"></i>
-                <h3 id="title1">Joebob Smith</h3>
+                <h3 id="title1">Joebob Joestar</h3>
             </div>
             <div id="profile-flex-2">
                 <div class="stats-flex">
@@ -92,12 +107,13 @@
         <!--chart.js-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="/__/firebase/8.3.1/firebase-app.js"></script>
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
-        <script src="/__/firebase/8.3.1/firebase-analytics.js"></script>
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
 
         <!-- Initialize Firebase -->
         <script src="/__/firebase/init.js"></script>

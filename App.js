@@ -1,5 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    //check to display login page
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // user is signed in
+        } else {
+            // no user is signed in
+        }
+    })
+
+    //login btn function
+    document.querySelector('#loginBtn').addEventListener('click', () => {
+        var email = document.querySelector('#email').value
+        var pass = document.querySelector('#password').value
+      
+        firebase.auth().signInWithEmailAndPassword(email, pass)
+            .then((userCredential) => {
+                //signed in
+                let user = userCredential.user;
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code
+                var errorMessage = error.message
+        
+                window.alert('Error : ' + errorMessage)
+            })
+    })
+
+    //logout function
+    document.querySelector('#logoutBtn').addEventListener('click', () => {
+        firebase.auth().signOut()
+    })
+
     let side = 1
     let slider = document.querySelector('#slider')
     let sec1 = document.querySelector('#section1')
@@ -25,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             c4.style.animation = 'circle-anim4 12s ease-in-out 0s'
             c5.style.animation = 'circle-anim5 12s ease-in-out 0s'
             c6.style.animation = 'circle-anim6 12s ease-in-out 0s'
-        }, 1000)
+        }, 500)
     })
 
     //slide btn clicked
@@ -111,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //sleep data object
+    //sleep data object (hrs)
     let sleep = {
         weeklys: [5.8],
         currentWeekly: 6.2,
@@ -119,6 +152,18 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSum: 37.0,
         sign: '+', 
         percentage: 6.9,
+        currentMonthly: 0.0,
+        monthlys: [],
+    }
+
+    //meditation data object (mins)
+    let meditation = {
+        weeklys: [3],
+        currentWeekly: 4.5,
+        currentDays: 6,
+        currentSum: 27,
+        currentMonthly: 0.0,
+        monthlys: [],
     }
 
     //update stats function
@@ -197,4 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveData(myChart)
     })
 
+    // ------LINE OF DEATH------ DONT GO ABOVE THIS LINE OR ELSE---------
+
+    // ------LINE OF DEATH 2.0----- DONT GO BELOW THIS LINE OR ELSE-------
 })
