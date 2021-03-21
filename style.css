@@ -192,6 +192,42 @@ div{
     top: -25px;
     left: 47vw;
     transform: rotate(90deg);
+    color: var(--main);
+    border-color: var(--main);
+    background-color: white;
+}
+#slideBtn2:active{
+    color:white;
+    border-color: white;
+    background-color: var(--main) !important;
+}
+.slideDownBtn{
+    animation: slideD-anim2 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideD-anim2{
+    0%{
+        top: -25px;
+    }
+    50%{
+    }
+    100%{
+        top: 95vh;
+    }
+}
+.slideUpBtn{
+    animation: slideU-anim2 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideU-anim2{
+    0%{
+        top: 95vh;
+    }
+    50%{
+    }
+    100%{
+        top: -25px;
+    }
 }
 
 #logout-page{
@@ -206,6 +242,34 @@ div{
     justify-content: space-around;
     align-items: center;
     z-index: 400;
+}
+.slideDown{
+    animation: slideD-anim 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideD-anim{
+    0%{
+        top: -100vh;
+    }
+    50%{
+    }
+    100%{
+        top: 0vh;
+    }
+}
+.slideUp{
+    animation: slideU-anim 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideU-anim{
+    0%{
+        top: 0vh;
+    }
+    50%{
+    }
+    100%{
+        top: -100vh;
+    }
 }
 
 #logoutBtn{

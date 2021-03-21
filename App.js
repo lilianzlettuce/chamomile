@@ -113,6 +113,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    let slideBtn2 = document.querySelector('#slideBtn2')
+    let logoutPage = document.querySelector('#logout-page')
+    let vertical = 1
+    //slideBtn2 clicked
+    slideBtn2.addEventListener('click', (e) => {
+        if (vertical === 1) {
+            logoutPage.classList.remove('slideUp')
+            logoutPage.classList.add('slideDown')
+            slideBtn2.classList.remove('slideUpBtn')
+            slideBtn2.classList.add('slideDownBtn')
+            vertical = 2
+        } else {
+            logoutPage.classList.add('slideUp')
+            logoutPage.classList.remove('slideDown')
+            slideBtn2.classList.add('slideUpBtn')
+            slideBtn2.classList.remove('slideDownBtn')
+            vertical = 1
+        }
+    })
+
     //initializing chart
     var ctx = document.querySelector('#sleepChart').getContext('2d')
     var sleepChart = new Chart(ctx, {
