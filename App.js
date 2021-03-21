@@ -7,15 +7,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let sec3 = document.querySelector('#section3')
     let breathe = document.querySelector('#title0')
     let slideBtn = document.querySelector('#slideBtn')
+    let beginBtn = document.querySelector('#beginBtn')
+    let circles = document.querySelector('#circles')
+
+    //begin btn clicked 
+    beginBtn.addEventListener('click', (e) => {
+        let c1 = document.querySelector('#circle1')
+        let c2 = document.querySelector('#circle2')
+        let c3 = document.querySelector('#circle3')
+        let c4 = document.querySelector('#circle4')
+        let c5 = document.querySelector('#circle5')
+        let c6 = document.querySelector('#circle6')
+        setTimeout(() => {
+            c1.style.animation = 'circle-anim 12s ease-in-out 0s'
+            c2.style.animation = 'circle-anim2 12s ease-in-out 0s'
+            c3.style.animation = 'circle-anim3 12s ease-in-out 0s'
+            c4.style.animation = 'circle-anim4 12s ease-in-out 0s'
+            c5.style.animation = 'circle-anim5 12s ease-in-out 0s'
+            c6.style.animation = 'circle-anim6 12s ease-in-out 0s'
+        }, 1000)
+    })
 
     //slide btn clicked
     slideBtn.addEventListener('click', (e) => {
         if (side === 1) {
             slider.classList.remove('slideL')
             slider.classList.add('slideR')
-            sec3.style.zIndex = '0'
-            sec3.classList.remove('disappear')
-            sec3.classList.add('appear')
+            sec3.style.zIndex = '20'
             setTimeout(() => {
                 slideBtn.classList.remove('slideBtn')
                 slideBtn.classList.add('blueBtn')
@@ -23,6 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 sec1.classList.add('disappear')
                 breathe.classList.remove('disappearSlow')
                 breathe.classList.add('appearSlow')
+                sec3.classList.remove('disappear')
+                sec3.classList.add('appearSlow')
+                circles.classList.remove('disappearSlow')
+                circles.classList.add('appearSlow')
             }, 800)
             side = 2
         } else {
@@ -31,9 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sec3.style.zIndex = '0'
             slideBtn.classList.remove('blueBtn')
             slideBtn.classList.add('slideBtn')
+            sec3.classList.remove('appearSlow')
+            sec3.classList.add('disappear')
+            circles.classList.remove('appearSlow')
+            circles.classList.add('disappearSlow')
             setTimeout(() => {
-                sec3.classList.remove('appear')
-                sec3.classList.add('disappear')
+
             }, 800)
             setTimeout(() => {
                 sec1.classList.remove('disappear')
