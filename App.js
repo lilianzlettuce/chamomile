@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //login btn function
     document.querySelector('#loginBtn').addEventListener('click', () => {
-        var email = document.querySelector('#email').value
-        var pass = document.querySelector('#password').value
+        let email = document.querySelector('#email').value
+        let pass = document.querySelector('#password').value
       
         firebase.auth().signInWithEmailAndPassword(email, pass)
             .then((userCredential) => {
@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let loginPage = document.querySelector('#login-page')
                 loginPage.classList.add('disappearSlow')
                 loginPage.classList.remove('appearSlow')
+                email = ''
+                pass = ''
                 setTimeout(() => {
                     loginPage.style.zIndex = -10
                 }, 1500)
@@ -232,7 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
         addData(sleepChart)
         let data = parseFloat(document.querySelector('#data').value)
         if (data >= sleep.goal) {
-            goalChart.data.datasets.data = [11, 1]
+            goalChart.chart.data.datasets.forEach((dataset => {
+                dataset.data = [11, 1]
+                document.querySelector('#daysLeft').textContent = '8.3'
+            }))
             goalChart.update()
         }
     })
@@ -285,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var goalChart = new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Hours Needed', 'Hours Completed'],
+            labels: ['Days Left', 'Days Completed'],
             datasets: [{
                 data: [9, 3],
                 backgroundColor: [
@@ -305,7 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
     goalBtn.addEventListener('click', () => {
         goalBtn.classList.remove('usableBtn')
         goalBtn.classList.add('unusableBtn')
-        document.querySelector('#daysLeft').textContent = '31'
     })
 
     //restart goal btn
@@ -319,6 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
         goalChart.update()
         document.querySelector('#sleepGoal').value = ''
         document.querySelector('#meditGoal').value = ''
+        document.querySelector('#daysLeft').textContent = '0.0'
     })
+    
 
 })

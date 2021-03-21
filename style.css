@@ -82,7 +82,6 @@ div{
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
 }
 
 #login-deco{
@@ -806,11 +805,17 @@ input:active,input:focus{
     opacity: 0%;
 }
 
+audio{
+    left: 500px;
+}
+
 #beginBtn{
     border-color: var(--main);
     color: var(--main);
     background-color: white;
     cursor: pointer;
+    position: relative;
+    top: 200px;
 }
 #beginBtn:active{
     border-color: white;
