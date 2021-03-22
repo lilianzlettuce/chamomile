@@ -340,6 +340,12 @@ div{
     font-weight: 300;
 }
 
+#percent-complete{
+    position: relative;
+    top: -180px;
+    text-align: center;
+}
+
 #circles{
     opacity: 0%;
 }
@@ -716,6 +722,7 @@ div{
 
 #section2{
     z-index: -10;
+    padding-bottom: 80px;
 }
 
 #monthlyBtn{
@@ -791,6 +798,7 @@ input:active,input:focus{
     align-items: center;
     justify-content: space-between;
     width: 95%;
+    padding: 0;
 }
 
 #saveBtn{
@@ -803,6 +811,24 @@ input:active,input:focus{
     align-items: flex-end;
     height: 100px;
     justify-content: space-between;
+}
+
+#data{
+    width: 60px;
+    text-align: center;
+    margin-left: 3%;
+}
+
+@media (max-width: 1300px){
+    #addDataBtn{
+        width: 70px;
+    }
+    #removeDataBtn{
+        width: 85px;
+    }
+    #saveBtn{
+        width: 110px;
+    }
 }
 
 .averages{

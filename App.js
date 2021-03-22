@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 breathe.classList.add('appearSlow')
                 sec3.classList.remove('disappear')
                 sec3.classList.add('appearSlow')
+                circles.style.display = 'block'
                 circles.classList.remove('disappearSlow')
                 circles.classList.add('appearSlow')
             }, 800)
@@ -107,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             circles.classList.remove('appearSlow')
             circles.classList.add('disappearSlow')
             setTimeout(() => {
-
-            }, 800)
+                circles.style.display = 'none'
+            }, 1500)
             setTimeout(() => {
                 sec1.classList.remove('disappear')
                 sec1.classList.add('appear')
