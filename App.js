@@ -4,16 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // user is signed in
+            
         } else {
             // no user is signed in
         }
     })
 
+    //autofill so ppl can test out
+    document.querySelector('#email').value = 'jojo@gmail.com'
+    document.querySelector('#password').value = 'password'
+
     //login btn function
     document.querySelector('#loginBtn').addEventListener('click', () => {
         let email = document.querySelector('#email').value
         let pass = document.querySelector('#password').value
-      
         firebase.auth().signInWithEmailAndPassword(email, pass)
             .then((userCredential) => {
                 //signed in
@@ -23,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 loginPage.classList.remove('appearSlow')
                 email = ''
                 pass = ''
-                setTimeout(() => {
-                    loginPage.style.zIndex = -10
-                }, 1500)
+            setTimeout(() => {
+                loginPage.style.zIndex = -10
+            }, 1500)
             })
             .catch(function (error) {
                 // Handle Errors here.
@@ -215,11 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
     }
 
+    let dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+
     //add data function - updates chart & sleep object
     function addData(chart) {
         let data = document.querySelector('#data').value
-        if(chart.data.labels.length < 7 && data <=24 && data != '') {
-            chart.data.labels.push(document.querySelector('#label').value)
+        if(chart.data.labels.length >=0 && chart.data.labels.length < 7 && data <=24 && data != '') {
+            chart.data.labels.push(dayNames[chart.data.labels.length])
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data)
             })
@@ -229,6 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateStats()
         }
     }
+
+    document.querySelector('#data').value = 7
     //add data button
     document.querySelector('#addDataBtn').addEventListener('click', () => {
         addData(sleepChart)
