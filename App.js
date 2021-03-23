@@ -49,6 +49,67 @@ document.addEventListener('DOMContentLoaded', () => {
         loginPage.style.zIndex = 500
     })
 
+    let sleepInput = document.querySelector('#sleepGoal')
+    let meditInput = document.querySelector('#meditGoal')
+    let eInput = document.querySelector('#eGoal')
+    let numTimes = document.querySelector('#num-times')
+    let numDays = document.querySelector('#num-days')
+    let inputArr = [sleepInput, meditInput, eInput, numTimes, numDays]
+
+    //start goal btn
+    let goalBtn = document.querySelector('#goalBtn')
+    goalBtn.addEventListener('click', () => {
+        let greaterThanZero = true
+        for (let i = 0; i < inputArr.length; i++) {
+            let input = inputArr[i]
+            if (input.value < 0) {
+                greaterThanZero = false
+            }
+            if (input.value == '') {
+                input.value = input.placeholder
+            }
+        }
+        if (greaterThanZero && sleepInput.value <= 24 && numDays.value >= numTimes.value) {
+            for (let i = 0; i < inputArr.length; i++) {
+                let input = inputArr[i]
+                input.disabled = 'disabled'
+            }
+            sleep.goalIP = true
+            sleep.goalHoursPD = sleepInput.value
+            sleep.goalDaysLeft = numTimes.value
+            sleep.goalPeriod = numDays.value
+            goalBtn.classList.remove('usableBtn')
+            goalBtn.classList.add('unusableBtn')
+            restartBtn.classList.add('usableBtn')
+            restartBtn.classList.remove('unusableBtn')
+        } else {
+            alert('Please enter valid values.')
+        }
+    })
+
+    //restart goal btn
+    let restartBtn = document.querySelector('#restartBtn')
+    restartBtn.addEventListener('click', () => {
+        goalBtn.classList.add('usableBtn')
+        goalBtn.classList.remove('unusableBtn')
+        restartBtn.classList.remove('usableBtn')
+        restartBtn.classList.add('unusableBtn')
+        sleepGoalChart.chart.data.datasets.forEach((dataset => {
+            dataset.data = [7, 0]
+        }))
+        sleepGoalChart.update()
+        for (let i = 0; i < inputArr.length; i++) {
+            inputArr[i].value = ''
+            inputArr[i].disabled = ''
+        }
+        sleep.goalIP = false
+        sleep.goalDaysCompleted = 0
+        sleep.goalDaysLeft = 0
+        sleep.goalHoursPD = 0.0
+        sleep. goalPeriod = 0
+        document.querySelector('#sleep-goal-percent').textContent = '0.0'
+    })
+
     let side = 1
     let slider = document.querySelector('#slider')
     let sec1 = document.querySelector('#section1')
@@ -58,24 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let slideBtn = document.querySelector('#slideBtn')
     let beginBtn = document.querySelector('#beginBtn')
     let circles = document.querySelector('#circles')
-
-    //begin btn clicked 
-    beginBtn.addEventListener('click', (e) => {
-        let c1 = document.querySelector('#circle1')
-        let c2 = document.querySelector('#circle2')
-        let c3 = document.querySelector('#circle3')
-        let c4 = document.querySelector('#circle4')
-        let c5 = document.querySelector('#circle5')
-        let c6 = document.querySelector('#circle6')
-        setTimeout(() => {
-            c1.style.animation = 'circle-anim 12s ease-in-out 0s infinite'
-            c2.style.animation = 'circle-anim2 12s ease-in-out 0s infinite'
-            c3.style.animation = 'circle-anim3 12s ease-in-out 0s infinite'
-            c4.style.animation = 'circle-anim4 12s ease-in-out 0s infinite'
-            c5.style.animation = 'circle-anim5 12s ease-in-out 0s infinite'
-            c6.style.animation = 'circle-anim6 12s ease-in-out 0s infinite'
-        }, 500)
-    })
 
     //slide btn clicked
     slideBtn.addEventListener('click', (e) => {
@@ -140,15 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //initializing chart
+    //initializing week sleep chart
     var ctx = document.querySelector('#sleepChart').getContext('2d')
     var sleepChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['S', 'M', 'T', 'W', 'T', 'F'],
+            labels: [],
             datasets: [{
                 label: '# of hours',
-                data: [8, 9, 4, 8, 5, 3],
+                data: [],
                 backgroundColor: [
                     'rgba(95, 138, 255, 0.3)',
                     'rgba(255, 159, 64, 0.2)',
@@ -183,15 +226,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //sleep data object (hrs)
     let sleep = {
-        weeklys: [5.8],
-        currentWeekly: 6.2,
-        currentDays: 6,
-        currentSum: 37.0,
+        weeklys: [],
+        currentWeekly: 0.0,
+        currentDays: 0,
+        currentSum: 0.0,
         sign: '+', 
-        percentage: 6.9,
-        currentMonthly: 0.0,
-        monthlys: [],
-        goal: 8.0,
+        percentage: 0.0,
+        goalIP: false,
+        goalHoursPD: 0.0,
+        goalDaysCompleted: 0,
+        goalDaysLeft: 0,
+        goalPeriod: 0,
+        allDays: [],
     }
 
     //meditation data object (mins)
@@ -221,11 +267,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-
     //add data function - updates chart & sleep object
     function addData(chart) {
         let data = document.querySelector('#data').value
-        if(chart.data.labels.length >=0 && data <=24 && data >= 0 && data != '') {
+        if(chart.data.labels.length <7 && data <=24 && data >= 0 && data != '') {
             chart.data.labels.push(dayNames[chart.data.labels.length])
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data)
@@ -234,6 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sleep.currentSum += parseFloat(data)
             sleep.currentDays++
             updateStats()
+        } else if (chart.data.labels.length == 7){
+            alert('Week has been filled. Press "Save Data" to start a new week.')
         } else {
             alert('Please provide a valid value.')
         }
@@ -244,12 +291,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#addDataBtn').addEventListener('click', () => {
         addData(sleepChart)
         let data = parseFloat(document.querySelector('#data').value)
-        if (data >= sleep.goal) {
+        if (sleep.goalIP && data >= sleep.goal) {
+            sleep.goalDaysLeft--
+            sleep.goalDaysCompleted++
+            numTimes.value = sleep.goalDaysLeft
             sleepGoalChart.chart.data.datasets.forEach((dataset => {
-                dataset.data = [11, 1]
+                dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
                 document.querySelector('#sleep-goal-percent').textContent = '8.3'
             }))
             sleepGoalChart.update()
+        } else if (sleep.goalIP) {
+            sleep.goalPeriod--
+            numDays.value = sleep.goalPeriods
         }
     })
 
@@ -280,13 +333,15 @@ document.addEventListener('DOMContentLoaded', () => {
             chart.update()
             sleep.weeklys.push(sleep.currentWeekly)
             sleep.currentDays = 0
-            sleep.currentSum = 0
-            sleep.currentWeekly = 0
+            sleep.currentSum = 0.0
+            sleep.currentWeekly = 0.0
             sleep.percentage = 0.0
             sleep.sign = '+'
             document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
             document.querySelector('#sign').textContent = sleep.sign
             document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
+        } else {
+            alert('Please fill in with all week values to save data.')
         }
     }
     //save data button
@@ -305,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: ['Days Left', 'Days Completed'],
             datasets: [{
-                data: [9, 3],
+                data: [7, 0],
                 backgroundColor: [
                     'rgb(255, 166, 83, 0.3)',
                     'rgb(255, 166, 83)'
@@ -324,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: ['Days Left', 'Days Completed'],
             datasets: [{
-                data: [9, 3],
+                data: [7, 0],
                 backgroundColor: [
                     'rgb(112, 139, 255, 0.3)',
                     'rgb(112, 139, 255)'
@@ -336,58 +391,14 @@ document.addEventListener('DOMContentLoaded', () => {
         options: {
         }
     })
-
-    let sleepInput = document.querySelector('#sleepGoal')
-    let meditInput = document.querySelector('#meditGoal')
-    let eInput = document.querySelector('#eGoal')
-    let numTimes = document.querySelector('#num-times')
-    let numDays = document.querySelector('#num-days')
-    let inputArr = [sleepInput, meditInput, eInput, numTimes, numDays]
-
-    //start goal btn
-    let goalBtn = document.querySelector('#goalBtn')
-    goalBtn.addEventListener('click', () => {
-        let greaterThanZero = true
-        for (let i = 0; i < inputArr.length; i++) {
-            let input = inputArr[i]
-            if (input.value < 0) {
-                greaterThanZero = false
-            }
-            if (input.value == '') {
-                input.value = input.placeholder
-            }
-        }
-        if (greaterThanZero && sleepInput.value <= 24 && numDays.value >= numTimes.value) {
-            for (let i = 0; i < inputArr.length; i++) {
-                let input = inputArr[i]
-                input.disabled = 'disabled'
-            }
-            goalBtn.classList.remove('usableBtn')
-            goalBtn.classList.add('unusableBtn')
-            restartBtn.classList.add('usableBtn')
-            restartBtn.classList.remove('unusableBtn')
-        } else {
-            alert('Please enter valid values.')
-        }
-    })
-
-    //restart goal btn
-    let restartBtn = document.querySelector('#restartBtn')
-    restartBtn.addEventListener('click', () => {
-        goalBtn.classList.add('usableBtn')
-        goalBtn.classList.remove('unusableBtn')
-        restartBtn.classList.remove('usableBtn')
-        restartBtn.classList.add('unusableBtn')
-        sleepGoalChart.chart.data.datasets.forEach((dataset => {
-            dataset.data = [12, 0]
-        }))
-        sleepGoalChart.update()
-        for (let i = 0; i < inputArr.length; i++) {
-            inputArr[i].value = ''
-            inputArr[i].disabled = ''
-        }
-        document.querySelector('#sleep-goal-percent').textContent = '0.0'
-    })
     
+    //begin btn clicked 
+    beginBtn.addEventListener('click', (e) => {
+        setTimeout(() => {
+            for (let i = 1; i <= 6; i++) {
+                document.querySelector(`#circle${i}`).style.animation = `circle-anim${i} 12s ease-in-out 0s infinite`
+            }
+        }, 500)
+    })
 
 })

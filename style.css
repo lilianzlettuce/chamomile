@@ -82,6 +82,7 @@ div{
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 #login-deco{
@@ -380,7 +381,7 @@ div{
     left: 75vw;
     top: 78vh;
 }
-@keyframes circle-anim {
+@keyframes circle-anim1 {
     5%{
         left: 75vw;
         top: 78vh;
