@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //add data function - updates chart & sleep object
     function addData(chart) {
         let data = document.querySelector('#data').value
-        if(chart.data.labels.length >=0 && chart.data.labels.length < 7 && data <=24 && data != '') {
+        if(chart.data.labels.length >=0 && data <=24 && data >= 0 && data != '') {
             chart.data.labels.push(dayNames[chart.data.labels.length])
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data)
@@ -234,6 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sleep.currentSum += parseFloat(data)
             sleep.currentDays++
             updateStats()
+        } else {
+            alert('Please provide a valid value.')
         }
     }
 
@@ -243,11 +245,11 @@ document.addEventListener('DOMContentLoaded', () => {
         addData(sleepChart)
         let data = parseFloat(document.querySelector('#data').value)
         if (data >= sleep.goal) {
-            goalChart.chart.data.datasets.forEach((dataset => {
+            sleepGoalChart.chart.data.datasets.forEach((dataset => {
                 dataset.data = [11, 1]
-                document.querySelector('#daysLeft').textContent = '8.3'
+                document.querySelector('#sleep-goal-percent').textContent = '8.3'
             }))
-            goalChart.update()
+            sleepGoalChart.update()
         }
     })
 
@@ -292,19 +294,21 @@ document.addEventListener('DOMContentLoaded', () => {
         saveData(sleepChart)
     })
 
-    document.querySelector('#sleepGoal').value = '8.0'
-    document.querySelector('#meditGoal').value = '5'
+    /*
+    document.querySelector('#sleepGoal').value = sleep.goal
+    document.querySelector('#meditGoal').value = exercise.goal
+    */
 
-    var ctx2 = document.querySelector('#goalChart').getContext('2d')
-    var goalChart = new Chart(ctx2, {
+    var ctx2 = document.querySelector('#sleepGoalChart').getContext('2d')
+    var sleepGoalChart = new Chart(ctx2, {
         type: 'doughnut',
         data: {
             labels: ['Days Left', 'Days Completed'],
             datasets: [{
                 data: [9, 3],
                 backgroundColor: [
-                    'rgb(255, 166, 0, 0.3)',
-                    'rgb(255, 166, 0)'
+                    'rgb(255, 166, 83, 0.3)',
+                    'rgb(255, 166, 83)'
                 ],
                 borderColor: [],
                 borderWidth: 1
@@ -314,25 +318,75 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    var ctx3 = document.querySelector('#eGoalChart').getContext('2d')
+    var eGoalChart = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: ['Days Left', 'Days Completed'],
+            datasets: [{
+                data: [9, 3],
+                backgroundColor: [
+                    'rgb(112, 139, 255, 0.3)',
+                    'rgb(112, 139, 255)'
+                ],
+                borderColor: [],
+                borderWidth: 1
+            }]
+        },
+        options: {
+        }
+    })
+
+    let sleepInput = document.querySelector('#sleepGoal')
+    let meditInput = document.querySelector('#meditGoal')
+    let eInput = document.querySelector('#eGoal')
+    let numTimes = document.querySelector('#num-times')
+    let numDays = document.querySelector('#num-days')
+    let inputArr = [sleepInput, meditInput, eInput, numTimes, numDays]
+
     //start goal btn
-    goalBtn = document.querySelector('#goalBtn')
+    let goalBtn = document.querySelector('#goalBtn')
     goalBtn.addEventListener('click', () => {
-        goalBtn.classList.remove('usableBtn')
-        goalBtn.classList.add('unusableBtn')
+        let greaterThanZero = true
+        for (let i = 0; i < inputArr.length; i++) {
+            let input = inputArr[i]
+            if (input.value < 0) {
+                greaterThanZero = false
+            }
+            if (input.value == '') {
+                input.value = input.placeholder
+            }
+        }
+        if (greaterThanZero && sleepInput.value <= 24 && numDays.value >= numTimes.value) {
+            for (let i = 0; i < inputArr.length; i++) {
+                let input = inputArr[i]
+                input.disabled = 'disabled'
+            }
+            goalBtn.classList.remove('usableBtn')
+            goalBtn.classList.add('unusableBtn')
+            restartBtn.classList.add('usableBtn')
+            restartBtn.classList.remove('unusableBtn')
+        } else {
+            alert('Please enter valid values.')
+        }
     })
 
     //restart goal btn
-    restartBtn = document.querySelector('#restartBtn')
+    let restartBtn = document.querySelector('#restartBtn')
     restartBtn.addEventListener('click', () => {
         goalBtn.classList.add('usableBtn')
         goalBtn.classList.remove('unusableBtn')
-        goalChart.chart.data.datasets.forEach((dataset => {
+        restartBtn.classList.remove('usableBtn')
+        restartBtn.classList.add('unusableBtn')
+        sleepGoalChart.chart.data.datasets.forEach((dataset => {
             dataset.data = [12, 0]
         }))
-        goalChart.update()
-        document.querySelector('#sleepGoal').value = ''
-        document.querySelector('#meditGoal').value = ''
-        document.querySelector('#daysLeft').textContent = '0.0'
+        sleepGoalChart.update()
+        for (let i = 0; i < inputArr.length; i++) {
+            inputArr[i].value = ''
+            inputArr[i].disabled = ''
+        }
+        document.querySelector('#sleep-goal-percent').textContent = '0.0'
     })
     
 

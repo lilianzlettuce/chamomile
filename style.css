@@ -241,6 +241,7 @@ div{
     justify-content: space-around;
     align-items: center;
     z-index: 400;
+    padding: 0px 5%;
 }
 .slideDown{
     animation: slideD-anim 1.5s ease-in-out 0s;
@@ -282,11 +283,16 @@ div{
     font-weight: 200;
 }
 
+.logout-text-small {
+    font-size: 2.2rem;
+    font-weight: 200;
+}
+
 .logout-input{
     border: 0px solid black;
     font-size: 2.2rem;
     font-weight: 200;
-    width: 53px;
+    width: 75px;
     margin: 0;
 }
 
@@ -294,8 +300,9 @@ div{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    height: 70vh;
+    justify-content: space-evenly;
+    height: 80vh;
+    padding: 0;
 }
 
 #btn-flexbox{
@@ -306,12 +313,25 @@ div{
     justify-content: space-around;
 }
 
-#logout-flex-2{
+#goalset{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.logout-flex-2{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 80vh;
+    height: 63vh;
+    padding: 0;
+}
+.percent-complete{
+    position: relative;
+    top: -43%;
+    text-align: center;
 }
 
 .usableBtn{
@@ -338,12 +358,6 @@ div{
     padding: 8px 15px;
     font-size: 1.8rem;
     font-weight: 300;
-}
-
-#percent-complete{
-    position: relative;
-    top: -180px;
-    text-align: center;
 }
 
 #circles{
@@ -778,9 +792,6 @@ input{
 }
 input:hover{
     cursor: pointer;
-}
-input:active,input:focus{
-    border: 1px solid rgb(143, 143, 143);
 }
 
 #data-flex-0{
