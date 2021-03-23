@@ -82,6 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
             goalBtn.classList.add('unusableBtn')
             restartBtn.classList.add('usableBtn')
             restartBtn.classList.remove('unusableBtn')
+            sleepGoalChart.chart.data.datasets.forEach((dataset => {
+                dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
+            }))
+            sleepGoalChart.update()
         } else {
             alert('Please enter valid values.')
         }
@@ -95,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         restartBtn.classList.remove('usableBtn')
         restartBtn.classList.add('unusableBtn')
         sleepGoalChart.chart.data.datasets.forEach((dataset => {
-            dataset.data = [7, 0]
+            dataset.data = [4, 0]
         }))
         sleepGoalChart.update()
         for (let i = 0; i < inputArr.length; i++) {
@@ -251,9 +255,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //update stats function
-    function updateStats() {
+    function updateStats(data, state) {
+        if (state === -1) {
+            //data was removed
+            sleep.allDays.pop()
+            sleep.currentSum -= data
+            sleep.currentDays--
+        } else {
+            //data was added
+            sleep.allDays.push(data)
+            sleep.currentSum += parseFloat(data)
+            sleep.currentDays++
+        }
         sleep.currentWeekly = sleep.currentSum / sleep.currentDays
-        document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
         let deci = sleep.currentWeekly / sleep.weeklys[sleep.weeklys.length - 1]
         if (deci >= 1){
             sleep.sign = '+'
@@ -264,10 +278,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         document.querySelector('#sign').textContent = sleep.sign
         document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
+        document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
     }
 
     let dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-    //add data function - updates chart & sleep object
+    //add data function - updates chart
     function addData(chart) {
         let data = document.querySelector('#data').value
         if(chart.data.labels.length <7 && data <=24 && data >= 0 && data != '') {
@@ -276,9 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dataset.data.push(data)
             })
             chart.update()
-            sleep.currentSum += parseFloat(data)
-            sleep.currentDays++
-            updateStats()
+            updateStats(document.querySelector('#data').value, 1)
         } else if (chart.data.labels.length == 7){
             alert('Week has been filled. Press "Save Data" to start a new week.')
         } else {
@@ -290,20 +303,22 @@ document.addEventListener('DOMContentLoaded', () => {
     //add data button
     document.querySelector('#addDataBtn').addEventListener('click', () => {
         addData(sleepChart)
-        let data = parseFloat(document.querySelector('#data').value)
-        if (sleep.goalIP && data >= sleep.goal) {
+        let data = document.querySelector('#data').value
+        //goal stuff
+        if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0) {
             sleep.goalDaysLeft--
             sleep.goalDaysCompleted++
             numTimes.value = sleep.goalDaysLeft
+            let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
+            document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
             sleepGoalChart.chart.data.datasets.forEach((dataset => {
                 dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
-                document.querySelector('#sleep-goal-percent').textContent = '8.3'
             }))
             sleepGoalChart.update()
         } else if (sleep.goalIP) {
             sleep.goalPeriod--
-            numDays.value = sleep.goalPeriods
-        }
+            numDays.value = sleep.goalPeriod
+        } 
     })
 
     //remove data function
@@ -314,9 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deleted = dataset.data.pop()
         })
         chart.update()
-        sleep.currentSum -= deleted
-        sleep.currentDays--
-        updateStats()
+        updateStats(deleted, -1)
     }
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {
@@ -360,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: ['Days Left', 'Days Completed'],
             datasets: [{
-                data: [7, 0],
+                data: [4, 0],
                 backgroundColor: [
                     'rgb(255, 166, 83, 0.3)',
                     'rgb(255, 166, 83)'
@@ -379,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: ['Days Left', 'Days Completed'],
             datasets: [{
-                data: [7, 0],
+                data: [4, 0],
                 backgroundColor: [
                     'rgb(112, 139, 255, 0.3)',
                     'rgb(112, 139, 255)'
