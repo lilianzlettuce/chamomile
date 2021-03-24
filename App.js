@@ -305,17 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
         addData(sleepChart)
         let data = document.querySelector('#data').value
         //goal stuff
-        if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0) {
+        if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0 && sleep.goalPeriod > 0) {
             sleep.goalDaysLeft--
             sleep.goalDaysCompleted++
             numTimes.value = sleep.goalDaysLeft
+            sleep.goalPeriod--
+            numDays.value = sleep.goalPeriod
             let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
             document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
             sleepGoalChart.chart.data.datasets.forEach((dataset => {
                 dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
             }))
             sleepGoalChart.update()
-        } else if (sleep.goalIP) {
+        } else if (sleep.goalIP && sleep.goalPeriod > 0) {
             sleep.goalPeriod--
             numDays.value = sleep.goalPeriod
         } 
@@ -330,6 +332,23 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         chart.update()
         updateStats(deleted, -1)
+        //goal stuff
+        if (sleep.goalIP && deleted >= sleep.goalHoursPD && sleep.goalPeriod > 0) {
+            sleep.goalDaysLeft++
+            sleep.goalDaysCompleted--
+            numTimes.value = sleep.goalDaysLeft
+            sleep.goalPeriod++
+            numDays.value = sleep.goalPeriod
+            let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
+            document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
+            sleepGoalChart.chart.data.datasets.forEach((dataset => {
+                dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
+            }))
+            sleepGoalChart.update()
+        } else if (sleep.goalIP && sleep.goalPeriod > 0) {
+            sleep.goalPeriod++
+            numDays.value = sleep.goalPeriod
+        } 
     }
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {
