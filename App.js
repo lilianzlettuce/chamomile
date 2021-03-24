@@ -53,8 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let meditInput = document.querySelector('#meditGoal')
     let eInput = document.querySelector('#eGoal')
     let numTimes = document.querySelector('#num-times')
+    let numWeeks = document.querySelector('#num-weeks')
+    let inputArr = [sleepInput, meditInput, eInput, numTimes, numWeeks]
     let numDays = document.querySelector('#num-days')
-    let inputArr = [sleepInput, meditInput, eInput, numTimes, numDays]
 
     //start goal btn
     let goalBtn = document.querySelector('#goalBtn')
@@ -69,23 +70,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.value = input.placeholder
             }
         }
-        if (greaterThanZero && sleepInput.value <= 24 && numDays.value >= numTimes.value) {
+        if (greaterThanZero && parseFloat(sleepInput.value) <= 24 && parseInt(numWeeks.value) * 7 >= parseInt(numTimes.value)) {
             for (let i = 0; i < inputArr.length; i++) {
                 let input = inputArr[i]
                 input.disabled = 'disabled'
             }
             sleep.goalIP = true
-            sleep.goalHoursPD = sleepInput.value
-            sleep.goalDaysLeft = numTimes.value
-            sleep.goalPeriod = numDays.value
+            sleep.goalHoursPD = parseFloat(sleepInput.value)
+            sleep.goalDaysLeft = parseInt(numTimes.value)
+            sleep.goalPeriod = parseInt(numWeeks.value) * 7
+            numDays.textContent = sleep.goalPeriod
             goalBtn.classList.remove('usableBtn')
             goalBtn.classList.add('unusableBtn')
             restartBtn.classList.add('usableBtn')
             restartBtn.classList.remove('unusableBtn')
-            sleepGoalChart.chart.data.datasets.forEach((dataset => {
-                dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
-            }))
-            sleepGoalChart.update()
+            updateGoal()
         } else {
             alert('Please enter valid values.')
         }
@@ -99,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         restartBtn.classList.remove('usableBtn')
         restartBtn.classList.add('unusableBtn')
         sleepGoalChart.chart.data.datasets.forEach((dataset => {
-            dataset.data = [4, 0]
+            dataset.data = [7, 0]
         }))
         sleepGoalChart.update()
         for (let i = 0; i < inputArr.length; i++) {
@@ -111,8 +110,20 @@ document.addEventListener('DOMContentLoaded', () => {
         sleep.goalDaysLeft = 0
         sleep.goalHoursPD = 0.0
         sleep. goalPeriod = 0
+        numDays.textContent = '0'
         document.querySelector('#sleep-goal-percent').textContent = '0.0'
     })
+
+    //update goal stuff 
+    function updateGoal() {
+        numDays.textContent = sleep.goalPeriod
+        let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
+        document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
+        sleepGoalChart.chart.data.datasets.forEach((dataset => {
+            dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
+        }))
+        sleepGoalChart.update()
+    }
 
     let side = 1
     let slider = document.querySelector('#slider')
@@ -269,12 +280,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         sleep.currentWeekly = sleep.currentSum / sleep.currentDays
         let deci = sleep.currentWeekly / sleep.weeklys[sleep.weeklys.length - 1]
-        if (deci >= 1){
-            sleep.sign = '+'
-            sleep.percentage = deci - 1
-        } else{
+        if (sleep.currentSum === 0) {
+            sleep.currentWeekly = 0.0
+            deci = 1
+        } else if (!(deci >= 0)) {
+            deci = 1
+        }
+        if (deci < 1){
             sleep.sign = '-'
-            sleep.percentage = 1 - deci
+            sleep.percentage = (1 - deci) * 100
+        } else{
+            sleep.sign = '+'
+            sleep.percentage = (deci - 1) * 100
         }
         document.querySelector('#sign').textContent = sleep.sign
         document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
@@ -291,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dataset.data.push(data)
             })
             chart.update()
-            updateStats(document.querySelector('#data').value, 1)
+            updateStats(data, 1)
         } else if (chart.data.labels.length == 7){
             alert('Week has been filled. Press "Save Data" to start a new week.')
         } else {
@@ -308,24 +325,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0 && sleep.goalPeriod > 0) {
             sleep.goalDaysLeft--
             sleep.goalDaysCompleted++
-            numTimes.value = sleep.goalDaysLeft
             sleep.goalPeriod--
-            numDays.value = sleep.goalPeriod
-            let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
-            document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
-            sleepGoalChart.chart.data.datasets.forEach((dataset => {
-                dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
-            }))
-            sleepGoalChart.update()
+            updateGoal()
         } else if (sleep.goalIP && sleep.goalPeriod > 0) {
             sleep.goalPeriod--
-            numDays.value = sleep.goalPeriod
+            updateGoal()
         } 
     })
 
     //remove data function
     function removeData(chart) {
-        chart.data.labels.pop()
+        if (chart.data.labels.length > 0) {
+            chart.data.labels.pop()
         let deleted
         chart.data.datasets.forEach((dataset) => {
             deleted = dataset.data.pop()
@@ -333,22 +344,16 @@ document.addEventListener('DOMContentLoaded', () => {
         chart.update()
         updateStats(deleted, -1)
         //goal stuff
-        if (sleep.goalIP && deleted >= sleep.goalHoursPD && sleep.goalPeriod > 0) {
+        if (sleep.goalIP && deleted >= sleep.goalHoursPD && sleep.goalPeriod > 0 && sleep.goalDaysLeft !== 0) {
             sleep.goalDaysLeft++
             sleep.goalDaysCompleted--
-            numTimes.value = sleep.goalDaysLeft
             sleep.goalPeriod++
-            numDays.value = sleep.goalPeriod
-            let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
-            document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
-            sleepGoalChart.chart.data.datasets.forEach((dataset => {
-                dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
-            }))
-            sleepGoalChart.update()
+            updateGoal()
         } else if (sleep.goalIP && sleep.goalPeriod > 0) {
             sleep.goalPeriod++
-            numDays.value = sleep.goalPeriod
+            updateGoal()
         } 
+        }
     }
     //remove data button
     document.querySelector('#removeDataBtn').addEventListener('click', () => {

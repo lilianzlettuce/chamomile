@@ -31,6 +31,7 @@
             <div id="logoutBtn" class="button">Logout</div>
             <div id="logout-flex-1" class="section">
                 <div class="logout-text">Daily Goal</div>
+                <div class="logout-text-small">Time remaining: <span id="num-days">0</span> days</div>
                 <div id="goalset">
                     <div class="logout-text-small" id="goalset-flex1">
                         <div class="logout-text-small">Sleep: &nbsp &nbsp
@@ -48,10 +49,9 @@
                     </div>
                 </div>
                 <div class="logout-text-small" id="goalset-flex2">
-                    <input type="number" placeholder="4" class="logout-input" id="num-times"/> times 
+                    <input type="number" placeholder="7" class="logout-input" id="num-times"/> days 
                     in the next  &nbsp &nbsp
-                    <input type="number" placeholder="7" class="logout-input" id="num-days"/> 
-                    days
+                    <input type="number" placeholder="2" class="logout-input" id="num-weeks"/> weeks
                 </div>
                 <div id="btn-flexbox">
                     <div class="usableBtn" id="goalBtn">Start</div>
@@ -111,7 +111,7 @@
             <h3 id="title2">Sleep</h3>
             <div id="avg-box">
                 <div class="averages">Weekly average: <span id="weeklyAvg">0.0</span> hrs/day</div>
-                <div class="averages"><span id="sign">+</span> <span id="percentage">NaN</span>% from last week</div>
+                <div class="averages"><span id="sign">+</span> <span id="percentage">0.00</span>% from last week</div>
             </div>
             <canvas id="sleepChart" width="280" height="190"></canvas>
             <div id="data-flex-0">
