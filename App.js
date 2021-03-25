@@ -54,14 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
     //inputs on goal setting page
     let sleepInput = document.querySelector('#sleepGoal')
     let eInput = document.querySelector('#eGoal')
-    let numTimes = document.querySelector('#num-times')
-    let numWeeks = document.querySelector('#num-weeks')
+    let numTimes = document.querySelector('#sleep-num-times')
+    let numWeeks = document.querySelector('#sleep-num-weeks')
     let inputArr = [sleepInput, eInput, numTimes, numWeeks]
     let numDays = document.querySelector('#num-days')
 
     //start goal btn
     let goalBtn = document.querySelector('#goalBtn')
     goalBtn.addEventListener('click', () => {
+        console.log(numTimes.value)
+        console.log(numWeeks.value)
+        console.log(sleepInput.value)
+        console.log(eInput.value)
 
         //check to see if values greater than 0
         let greaterThanZero = true
@@ -78,6 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
         //check to see if all values valid
         if (greaterThanZero && parseFloat(sleepInput.value) <= 24 && parseInt(numWeeks.value) * 7 >= parseInt(numTimes.value)) {
 
+            //sleep object updates
+            sleep.goalIP = true
+            sleep.goalHoursPD = parseFloat(sleepInput.value)
+            sleep.goalDaysLeft = parseInt(numTimes.value)
+            sleep.goalPeriod = parseInt(numWeeks.value) * 7
+
             //ui updates
             for (let i = 0; i < inputArr.length; i++) {
                 let input = inputArr[i]
@@ -88,12 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
             goalBtn.classList.add('unusableBtn')
             restartBtn.classList.add('usableBtn')
             restartBtn.classList.remove('unusableBtn')
-
-            //sleep object updates
-            sleep.goalIP = true
-            sleep.goalHoursPD = parseFloat(sleepInput.value)
-            sleep.goalDaysLeft = parseInt(numTimes.value)
-            sleep.goalPeriod = parseInt(numWeeks.value) * 7
 
             //update sleep goal chart and related stuff to match current values
             updateGoal()
@@ -344,6 +348,17 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             chart.update()
             updateStats(data, 1)
+
+            //sleep goal stuff
+            if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0 && sleep.goalPeriod > 0) {
+                sleep.goalDaysLeft--
+                sleep.goalDaysCompleted++
+                sleep.goalPeriod--
+                updateGoal()
+            } else if (sleep.goalIP && sleep.goalPeriod > 0) {
+                sleep.goalPeriod--
+                updateGoal()
+            } 
         } else if (chart.data.labels.length == 7){
             //no more space
             alert('Week has been filled. Press "Save Data" to start a new week.')
@@ -358,16 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#addDataBtn').addEventListener('click', () => {
         addData(sleepChart)
         let data = document.querySelector('#data').value
-        //sleep goal stuff
-        if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0 && sleep.goalPeriod > 0) {
-            sleep.goalDaysLeft--
-            sleep.goalDaysCompleted++
-            sleep.goalPeriod--
-            updateGoal()
-        } else if (sleep.goalIP && sleep.goalPeriod > 0) {
-            sleep.goalPeriod--
-            updateGoal()
-        } 
     })
 
     //remove data function
@@ -451,17 +456,22 @@ document.addEventListener('DOMContentLoaded', () => {
             datasets: [{
                 data: [4, 0],
                 backgroundColor: [
-                    'rgb(255, 166, 83, 0.3)',
-                    'rgb(255, 166, 83)'
+                    'rgb(255, 255, 255, 0.7)',
+                    'rgb(255, 203, 154)',
+                    'rgb(255, 255, 255, 0.1)',
+                    'rgb(255, 166, 83)',
                 ],
-                borderColor: [],
+                borderColor: [
+                    'rgb(255, 166, 83)',
+                    'rgb(255, 255, 255)',
+                ],
                 borderWidth: 1
             }]
         },
         options: {
             legend: {
                 labels: {
-                    fontColor: 'black'
+                    fontColor: 'white'
                 }
             }
         }

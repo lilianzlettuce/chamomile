@@ -18,7 +18,7 @@
             <div class="deco" id="login-deco2"></div>
             <div class="deco" id="login-deco3"></div>
             <div id="login-box">
-                <h4 id="login-title">Sign in to Eidetic</h4>
+                <h5 id="login-title">Sign in to Eidetic</h5>
                 <input type="email" placeholder="Email" class="login-input" id="email" />
                 <input type="password" placeholder="Password" class="login-input" id="password">
                 <button id="loginBtn" class="button">Login</button>
@@ -31,14 +31,30 @@
         <div id="logout-page">
             <button id="logoutBtn" class="button">Logout</button>
             <div id="logout-flex-1" class="section">
-                <h3>Sleep Goals Completed: <span>0</span></h3>
                 <div class="logout-text">Daily Goal</div>
-                <div id="goalset">
-                    <div class="logout-text-small" id="goalset-flex1">
-                        <div class="logout-text-small">Exercise: &nbsp &nbsp
-                            <input type="number" placeholder="15" class="logout-input" id="eGoal"/> mins
-                        </div>
+                <div class="goalset">
+                    <div class="logout-text-small">Sleep: &nbsp &nbsp
+                        <input type="number" placeholder="7.4" class="logout-input" id="sleepGoal"/> hrs
                     </div>
+                    <div class="logout-text-small">
+                        <input type="number" placeholder="7" class="logout-input" id="sleep-num-times"/> days 
+                        in the next  &nbsp &nbsp
+                        <input type="number" placeholder="2" class="logout-input" id="sleep-num-weeks"/> weeks
+                    </div>
+                </div>
+                <div class="goalset">
+                    <div class="logout-text-small">Exercise: &nbsp &nbsp
+                        <input type="number" placeholder="15" class="logout-input" id="eGoal"/> mins
+                    </div>
+                    <div class="logout-text-small">
+                        <input type="number" placeholder="7" class="logout-input" id="e-num-times"/> days 
+                        in the next  &nbsp &nbsp
+                        <input type="number" placeholder="2" class="logout-input" id="e-num-weeks"/> weeks
+                    </div>
+                </div>
+                <div id="btn-flexbox">
+                    <button class="usableBtn" id="goalBtn">Start</button>
+                    <button class="unusableBtn" id="restartBtn">Restart</button>
                 </div>
             </div>
             
@@ -59,26 +75,14 @@
 
             <!--sleep goal display next to sleep log chart-->
             <div id="section1" class="set section">
-
-                <div class="logout-text-small">
-                    <input type="number" placeholder="7.4" class="logout-input" id="sleepGoal"/> hrs
-                </div>
-                <div class="logout-text-small" id="goalset-flex2">
-                    <input type="number" placeholder="7" class="logout-input" id="num-times"/> days 
-                    in the next  &nbsp &nbsp
-                    <input type="number" placeholder="2" class="logout-input" id="num-weeks"/> weeks
-                </div>
-                <div class="logout-text-small">Time remaining: <span id="num-days">0</span> days</div>
-
-                <div class="section logout-flex-2">
-                    <div> &nbsp </div>
+                <h4>Sleep Goals Completed: <span>0</span></h4>
+                <h4>Goal: <span>0</span> hrs per day</h4>
+                <h4>Time remaining: <span id="num-days">0</span> days</h4>
+                
+                <div>
+                    <div>&nbsp</div>
                     <canvas id="sleepGoalChart" width="270" height="270"></canvas>
                     <div class="logout-text percent-complete"><span id="sleep-goal-percent">0.0</span>%</div>
-                </div>
-
-                <div id="btn-flexbox">
-                    <button class="usableBtn" id="goalBtn">Start</button>
-                    <button class="unusableBtn" id="restartBtn">Restart</button>
                 </div>
 
                 <div>
