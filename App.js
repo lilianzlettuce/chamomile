@@ -53,11 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //inputs on goal setting page
     let sleepInput = document.querySelector('#sleepGoal')
-    let meditInput = document.querySelector('#meditGoal')
     let eInput = document.querySelector('#eGoal')
     let numTimes = document.querySelector('#num-times')
     let numWeeks = document.querySelector('#num-weeks')
-    let inputArr = [sleepInput, meditInput, eInput, numTimes, numWeeks]
+    let inputArr = [sleepInput, eInput, numTimes, numWeeks]
     let numDays = document.querySelector('#num-days')
 
     //start goal btn
@@ -148,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //switching between sleep chart and e chart
     let side = 1
+    let secMid = document.querySelector('#section-mid')
     let slider = document.querySelector('#slider')
     let sec1 = document.querySelector('#section1')
     let sec2 = document.querySelector('#section2')
@@ -205,21 +205,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let logoutPage = document.querySelector('#logout-page')
     let vertical = 1
 
-    //slideBtn2 clicked-- ui updates
+    //slideBtn2 clicked-- ui updates for sliding up and down
     slideBtn2.addEventListener('click', (e) => {
         if (vertical === 1) {
-            logoutPage.classList.remove('slideUp')
-            logoutPage.classList.add('slideDown')
+            logoutPage.classList.remove('slideMidTop')
+            logoutPage.classList.add('slideTopMid')
             slideBtn2.classList.remove('slideUpBtn')
             slideBtn2.classList.add('slideDownBtn')
             vertical = 2
         } else {
-            logoutPage.classList.add('slideUp')
-            logoutPage.classList.remove('slideDown')
+            logoutPage.classList.add('slideMidTop')
+            logoutPage.classList.remove('slideTopMid')
             slideBtn2.classList.add('slideUpBtn')
             slideBtn2.classList.remove('slideDownBtn')
             vertical = 1
         }
+    })
+
+    //seeMonthly btn clicked-- slide to the right
+    document.querySelector('#seeMonthlyBtn').addEventListener('click', () => {
+        secMid.classList.remove('slideLeftMid')
+        secMid.classList.add('slideMidLeft')
     })
 
     //initialize weekly sleep logging chart
@@ -436,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#meditGoal').value = exercise.goal
     */
 
-    //sleep goal chart
+    //sleep goal chart 1
     var ctx2 = document.querySelector('#sleepGoalChart').getContext('2d')
     var sleepGoalChart = new Chart(ctx2, {
         type: 'doughnut',

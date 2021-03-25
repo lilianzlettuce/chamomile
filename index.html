@@ -31,36 +31,17 @@
         <div id="logout-page">
             <button id="logoutBtn" class="button">Logout</button>
             <div id="logout-flex-1" class="section">
+                <h3>Sleep Goals Completed: <span>0</span></h3>
                 <div class="logout-text">Daily Goal</div>
-                <div class="logout-text-small">Time remaining: <span id="num-days">0</span> days</div>
                 <div id="goalset">
                     <div class="logout-text-small" id="goalset-flex1">
-                        <div class="logout-text-small">Sleep: &nbsp &nbsp
-                            <input type="number" placeholder="7.4" class="logout-input" id="sleepGoal"/> hrs
-                        </div>
-                        <div class="logout-text-small">Meditation: &nbsp &nbsp
-                            <input type="number" placeholder="4" class="logout-input" id="meditGoal"/> mins
-                        </div>
                         <div class="logout-text-small">Exercise: &nbsp &nbsp
                             <input type="number" placeholder="15" class="logout-input" id="eGoal"/> mins
                         </div>
                     </div>
                 </div>
-                <div class="logout-text-small" id="goalset-flex2">
-                    <input type="number" placeholder="7" class="logout-input" id="num-times"/> days 
-                    in the next  &nbsp &nbsp
-                    <input type="number" placeholder="2" class="logout-input" id="num-weeks"/> weeks
-                </div>
-                <div id="btn-flexbox">
-                    <button class="usableBtn" id="goalBtn">Start</button>
-                    <button class="unusableBtn" id="restartBtn">Restart</button>
-                </div>
             </div>
-            <div class="section logout-flex-2">
-                <div class="logout-text">Sleep</div>
-                <canvas id="sleepGoalChart" width="270" height="270"></canvas>
-                <div class="logout-text percent-complete"><span id="sleep-goal-percent">0.0</span>%</div>
-            </div>
+            
             <div class="section logout-flex-2">
                 <div class="logout-text">Exercise</div>
                 <canvas id="eGoalChart" width="270" height="270"></canvas>
@@ -68,86 +49,110 @@
             </div>
         </div>
 
-        <!--the part that slides aka section 4: e goal display next to e log chart-->
-        <div id="slider" class="set section">
-            <h1 id="title0">breathe</h1>
-
-        </div>
-
-        <!--sleep goal display next to sleep log chart-->
-        <div id="section1" class="set section">
-            <h3>Sleep Goals Completed: <span>0</span></h3>
-            <div>
-                <div>Congrats! You have slept for <span>0</span> hours per day 
-                    <span>0</span> out of <span>0</span> days.</div>
-                <div class="button">Complete Goal</div>
+        <!--middle section-->
+        <div id="section-mid">
+            <!--the part that slides aka section 4: e goal display next to e log chart-->
+            <div id="slider" class="set section">
+                <h1 id="title0">breathe</h1>
+                
             </div>
-            <!--
-            <div id="profile-flex-1">
-                <i class="fas fa-user-secret"></i>
-                <h3 id="title1">Joebob Joestar</h3>
-            </div>
-            <div id="profile-flex-2">
-                <div class="stats-flex">
-                    <h4 class="label">Age</h4>
-                    <h2 class="stats">6</h2>
+
+            <!--sleep goal display next to sleep log chart-->
+            <div id="section1" class="set section">
+
+                <div class="logout-text-small">
+                    <input type="number" placeholder="7.4" class="logout-input" id="sleepGoal"/> hrs
                 </div>
-                <div class="stats-flex">
-                    <h4 class="label">Weight</h4>
-                    <h2 class="stats">825 <span style="font-size: 4rem;">lb</span></h2>
+                <div class="logout-text-small" id="goalset-flex2">
+                    <input type="number" placeholder="7" class="logout-input" id="num-times"/> days 
+                    in the next  &nbsp &nbsp
+                    <input type="number" placeholder="2" class="logout-input" id="num-weeks"/> weeks
                 </div>
-                <div class="stats-flex">
-                    <h4 class="label">Height</h4>
-                    <h2 class="stats">52<span style="font-size: 5rem;">'</span>8<span style="font-size: 5rem;">''</span></h2>
+                <div class="logout-text-small">Time remaining: <span id="num-days">0</span> days</div>
+
+                <div class="section logout-flex-2">
+                    <div> &nbsp </div>
+                    <canvas id="sleepGoalChart" width="270" height="270"></canvas>
+                    <div class="logout-text percent-complete"><span id="sleep-goal-percent">0.0</span>%</div>
+                </div>
+
+                <div id="btn-flexbox">
+                    <button class="usableBtn" id="goalBtn">Start</button>
+                    <button class="unusableBtn" id="restartBtn">Restart</button>
+                </div>
+
+                <div>
+                    <div>Congrats! You have slept for <span>0</span> hours per day 
+                        <span>0</span> out of <span>0</span> days.</div>
+                    <div class="button">Complete Goal</div>
+                </div>
+                <!--
+                <div id="profile-flex-1">
+                    <i class="fas fa-user-secret"></i>
+                    <h3 id="title1">Joebob Joestar</h3>
+                </div>
+                <div id="profile-flex-2">
+                    <div class="stats-flex">
+                        <h4 class="label">Age</h4>
+                        <h2 class="stats">6</h2>
+                    </div>
+                    <div class="stats-flex">
+                        <h4 class="label">Weight</h4>
+                        <h2 class="stats">825 <span style="font-size: 4rem;">lb</span></h2>
+                    </div>
+                    <div class="stats-flex">
+                        <h4 class="label">Height</h4>
+                        <h2 class="stats">52<span style="font-size: 5rem;">'</span>8<span style="font-size: 5rem;">''</span></h2>
+                    </div>
+                </div>
+
+                <div class="deco" id="deco2"></div>
+                <div class="deco" id="deco3"></div>
+                <div class="deco" id="deco1"></div>
+                -->
+            </div>
+            <button id="slideBtn" class="button">&nbsp ⟷ &nbsp</button>
+
+            <!--sleep log chart-->
+            <div id="section2" class="set2 section">
+                <button class="button" id="seeMonthlyBtn">See Monthly Data →</button>
+                <h3 id="title2">Sleep</h3>
+                <div id="avg-box">
+                    <div class="averages">Weekly average: <span id="weeklyAvg">0.0</span> hrs/day</div>
+                    <div class="averages"><span id="sign">+</span> <span id="percentage">0.00</span>% from last week</div>
+                </div>
+                <canvas id="sleepChart" width="280" height="190"></canvas>
+                <div id="data-flex-0">
+                    <div id="data-flex-1">
+                        <input id="data" type="number" placeholder="7">
+                        <button class="button2" id="addDataBtn">Add</button>
+                        <button class="button2" id="removeDataBtn">Delete</button>
+                        <button class="button2" id="saveBtn">Save Data</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="deco" id="deco2"></div>
-            <div class="deco" id="deco3"></div>
-            <div class="deco" id="deco1"></div>
-            -->
-        </div>
-        <button id="slideBtn" class="button">&nbsp ⟷ &nbsp</button>
-
-        <!--sleep log chart-->
-        <div id="section2" class="set2 section">
-            <button class="button" id="monthlyBtn">See Monthly Data →</button>
-            <h3 id="title2">Sleep</h3>
-            <div id="avg-box">
-                <div class="averages">Weekly average: <span id="weeklyAvg">0.0</span> hrs/day</div>
-                <div class="averages"><span id="sign">+</span> <span id="percentage">0.00</span>% from last week</div>
-            </div>
-            <canvas id="sleepChart" width="280" height="190"></canvas>
-            <div id="data-flex-0">
-                <div id="data-flex-1">
-                    <input id="data" type="number" placeholder="7">
-                    <button class="button2" id="addDataBtn">Add</button>
-                    <button class="button2" id="removeDataBtn">Delete</button>
-                    <button class="button2" id="saveBtn">Save Data</button>
+            <!--e log chart-->
+            <div id="section3" class="set section">
+                <audio src="Rickroll But It's Lofi.mp3" controls loop>j</audio>
+                
+                <h1 id="title3">relax;</h1>
+                <div id="timer-box">
+                    <button id="beginBtn" class="button" onclick="startTimer()">Begin</button>
                 </div>
+                <div id="timer"></div>
             </div>
-        </div>
 
-        <!--e log chart-->
-        <div id="section3" class="set section">
-            <audio src="Rickroll But It's Lofi.mp3" controls loop>j</audio>
-            
-            <h1 id="title3">relax;</h1>
-            <div id="timer-box">
-                <button id="beginBtn" class="button" onclick="startTimer()">Begin</button>
+            <!--meditation animation-->
+            <div id="circles">
+                <div id="circle1" class="circle"></div>
+                <div id="circle2" class="circle"></div>
+                <div id="circle3" class="circle"></div>
+                <div id="circle4" class="circle"></div>
+                <div id="circle5" class="circle"></div>
+                <div id="circle6" class="circle"></div>
+                <div id="circle7" class="circle"></div>
             </div>
-            <div id="timer"></div>
-        </div>
-
-        <!--meditation animation-->
-        <div id="circles">
-            <div id="circle1" class="circle"></div>
-            <div id="circle2" class="circle"></div>
-            <div id="circle3" class="circle"></div>
-            <div id="circle4" class="circle"></div>
-            <div id="circle5" class="circle"></div>
-            <div id="circle6" class="circle"></div>
-            <div id="circle7" class="circle"></div>
         </div>
 
         <!--my js-->

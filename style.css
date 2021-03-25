@@ -209,8 +209,6 @@ div{
     0%{
         top: -25px;
     }
-    50%{
-    }
     100%{
         top: 95vh;
     }
@@ -222,8 +220,6 @@ div{
 @keyframes slideU-anim2{
     0%{
         top: 95vh;
-    }
-    50%{
     }
     100%{
         top: -25px;
@@ -244,11 +240,11 @@ div{
     z-index: 400;
     padding: 0px 5%;
 }
-.slideDown{
-    animation: slideD-anim 1.5s ease-in-out 0s;
+.slideTopMid{
+    animation: slideTopMid-anim 1.5s ease-in-out 0s;
     animation-fill-mode: forwards;
 }
-@keyframes slideD-anim{
+@keyframes slideTopMid-anim{
     0%{
         top: -100vh;
     }
@@ -258,11 +254,11 @@ div{
         top: 0vh;
     }
 }
-.slideUp{
-    animation: slideU-anim 1.5s ease-in-out 0s;
+.slideMidTop{
+    animation: slideMidTop-anim 1.5s ease-in-out 0s;
     animation-fill-mode: forwards;
 }
-@keyframes slideU-anim{
+@keyframes slideMidTop-anim{
     0%{
         top: 0vh;
     }
@@ -291,9 +287,9 @@ div{
 
 .logout-input{
     border: 0px solid black;
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 200;
-    width: 75px;
+    width: 55px;
     margin: 0;
 }
 
@@ -360,6 +356,34 @@ div{
     padding: 8px 15px;
     font-size: 1.8rem;
     font-weight: 300;
+}
+
+#section-mid{
+    position: absolute;
+}
+.slideMidLeft{
+    animation: slideMidLeft-anim 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideMidLeft-anim{
+    0%{
+        left: 0vw;
+    }
+    100%{
+        left: -100vw;
+    }
+}
+.slideLeftMid{
+    animation: slideLeftMid-anim 1.5s ease-in-out 0s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideLeftMid-anim{
+    0%{
+        left: -100vw;
+    }
+    100%{
+        left: 0vw;
+    }
 }
 
 #circles{
@@ -618,7 +642,6 @@ div{
         background-color: var(--sub);
     }
 }
-
 .slideL{
     
     animation: slideL-anim 1.5s ease-in-out 0s;
@@ -656,7 +679,6 @@ div{
         opacity: 0%;
     }
 }
-
 .appear{
     opacity: 0%;
     animation: appear-anim .5s ease-in-out 0s;
@@ -741,7 +763,7 @@ div{
     padding-bottom: 80px;
 }
 
-#monthlyBtn{
+#seeMonthlyBtn{
     position: absolute;
     left: 70%;
     font-size: 1.4rem;
@@ -754,6 +776,8 @@ div{
     left: 46.7vw;
     z-index: 300 !important;
     font-weight: bolder;
+    width: 85px;
+    height: 55px;
 }
 
 .button2 {
