@@ -22,17 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((userCredential) => {
                 //signed in
                 let user = userCredential.user;
+
+                //ui updates
                 let loginPage = document.querySelector('#login-page')
                 loginPage.classList.add('disappearSlow')
                 loginPage.classList.remove('appearSlow')
-                email = ''
-                pass = ''
-            setTimeout(() => {
-                loginPage.style.zIndex = -10
-            }, 1500)
+                document.querySelector('#email').value = ''
+                document.querySelector('#password').value = ''
+                setTimeout(() => {
+                    loginPage.style.zIndex = -10
+                }, 1500)
             })
             .catch(function (error) {
-                // Handle Errors here.
+                // handle errors
                 var errorCode = error.code
                 var errorMessage = error.message
         
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loginPage.style.zIndex = 500
     })
 
+    //inputs on goal setting page
     let sleepInput = document.querySelector('#sleepGoal')
     let meditInput = document.querySelector('#meditGoal')
     let eInput = document.querySelector('#eGoal')
@@ -60,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //start goal btn
     let goalBtn = document.querySelector('#goalBtn')
     goalBtn.addEventListener('click', () => {
+
+        //check to see if values greater than 0
         let greaterThanZero = true
         for (let i = 0; i < inputArr.length; i++) {
             let input = inputArr[i]
@@ -70,7 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.value = input.placeholder
             }
         }
+
+        //check to see if all values valid
         if (greaterThanZero && parseFloat(sleepInput.value) <= 24 && parseInt(numWeeks.value) * 7 >= parseInt(numTimes.value)) {
+
             //ui updates
             for (let i = 0; i < inputArr.length; i++) {
                 let input = inputArr[i]
@@ -81,13 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
             goalBtn.classList.add('unusableBtn')
             restartBtn.classList.add('usableBtn')
             restartBtn.classList.remove('unusableBtn')
-            
+
             //sleep object updates
             sleep.goalIP = true
             sleep.goalHoursPD = parseFloat(sleepInput.value)
             sleep.goalDaysLeft = parseInt(numTimes.value)
             sleep.goalPeriod = parseInt(numWeeks.value) * 7
 
+            //update sleep goal chart and related stuff to match current values
             updateGoal()
         } else {
             alert('Please enter valid values.')
@@ -102,36 +111,42 @@ document.addEventListener('DOMContentLoaded', () => {
         goalBtn.classList.remove('unusableBtn')
         restartBtn.classList.remove('usableBtn')
         restartBtn.classList.add('unusableBtn')
-
-        //
-        sleepGoalChart.chart.data.datasets.forEach((dataset => {
-            dataset.data = [7, 0]
-        }))
-        sleepGoalChart.update()
         for (let i = 0; i < inputArr.length; i++) {
             inputArr[i].value = ''
             inputArr[i].disabled = ''
         }
+        numDays.textContent = '0'
+        document.querySelector('#sleep-goal-percent').textContent = '0.0'
+
+        //reinitialize sleep goal chart
+        sleepGoalChart.chart.data.datasets.forEach((dataset => {
+            dataset.data = [7, 0]
+        }))
+        sleepGoalChart.update()
+
+        //sleep object updates
         sleep.goalIP = false
         sleep.goalDaysCompleted = 0
         sleep.goalDaysLeft = 0
         sleep.goalHoursPD = 0.0
         sleep. goalPeriod = 0
-        numDays.textContent = '0'
-        document.querySelector('#sleep-goal-percent').textContent = '0.0'
     })
 
     //update goal stuff 
     function updateGoal() {
-        numDays.textContent = sleep.goalPeriod
-        let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100
+        numDays.textContent = sleep.goalPeriod  //time left to complete goal
+
+        let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100    //percent completed
         document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
+
+        //update sleep goal chart
         sleepGoalChart.chart.data.datasets.forEach((dataset => {
             dataset.data = [sleep.goalDaysLeft, sleep.goalDaysCompleted]
         }))
         sleepGoalChart.update()
     }
 
+    //switching between sleep chart and e chart
     let side = 1
     let slider = document.querySelector('#slider')
     let sec1 = document.querySelector('#section1')
@@ -142,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let beginBtn = document.querySelector('#beginBtn')
     let circles = document.querySelector('#circles')
 
-    //slide btn clicked
+    //slide btn clicked-- all ui updates
     slideBtn.addEventListener('click', (e) => {
         if (side === 1) {
             slider.classList.remove('slideL')
@@ -185,10 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    //switching between goal setting page and logging chart page
     let slideBtn2 = document.querySelector('#slideBtn2')
     let logoutPage = document.querySelector('#logout-page')
     let vertical = 1
-    //slideBtn2 clicked
+
+    //slideBtn2 clicked-- all ui updates
     slideBtn2.addEventListener('click', (e) => {
         if (vertical === 1) {
             logoutPage.classList.remove('slideUp')
@@ -205,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //initializing week sleep chart
+    //initialize weekly sleep logging chart
     var ctx = document.querySelector('#sleepChart').getContext('2d')
     var sleepChart = new Chart(ctx, {
         type: 'bar',
@@ -246,20 +263,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //sleep data object (hrs)
+    //sleep data object 
     let sleep = {
-        weeklys: [],
-        currentWeekly: 0.0,
-        currentDays: 0,
-        currentSum: 0.0,
-        sign: '+', 
-        percentage: 0.0,
-        goalIP: false,
-        goalHoursPD: 0.0,
-        goalDaysCompleted: 0,
-        goalDaysLeft: 0,
-        goalPeriod: 0,
-        allDays: [],
+        weeklys: [],    // all weekly avgs
+        currentWeekly: 0.0, //current weekly avg
+        currentDays: 0, //current number of days logged this week
+        currentSum: 0.0,    //current sum of all hours logged this week
+        sign: '+',  //increase or decrease
+        percentage: 0.0,    //percentage change in avg daily sleep from last week
+        goalIP: false,  //goal in progress
+        goalHoursPD: 0.0,   //goal: hours per day 
+        goalDaysCompleted: 0,   //num days completed
+        goalDaysLeft: 0,    //num days left to complete
+        goalPeriod: 0,  //num days left until time runs out 
+        allDays: [],    //all sleep hours logged
     }
 
     //meditation data object (mins)
@@ -272,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         monthlys: [],
     }
 
-    //update stats function
+    //update sleep object
     function updateStats(data, state) {
         if (state === -1) {
             //data was removed
@@ -286,6 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sleep.currentDays++
         }
         sleep.currentWeekly = sleep.currentSum / sleep.currentDays
+
+        //calc percentage change
         let deci = sleep.currentWeekly / sleep.weeklys[sleep.weeklys.length - 1]
         if (sleep.currentSum === 0) {
             sleep.currentWeekly = 0.0
@@ -300,6 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sleep.sign = '+'
             sleep.percentage = (deci - 1) * 100
         }
+
+        //ui update 
         document.querySelector('#sign').textContent = sleep.sign
         document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
         document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
@@ -310,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function addData(chart) {
         let data = document.querySelector('#data').value
         if(chart.data.labels.length <7 && data <=24 && data >= 0 && data != '') {
+            //values are valid & there's space
             chart.data.labels.push(dayNames[chart.data.labels.length])
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data)
@@ -317,8 +339,10 @@ document.addEventListener('DOMContentLoaded', () => {
             chart.update()
             updateStats(data, 1)
         } else if (chart.data.labels.length == 7){
+            //no more space
             alert('Week has been filled. Press "Save Data" to start a new week.')
         } else {
+            //values not valid
             alert('Please provide a valid value.')
         }
     }
@@ -328,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#addDataBtn').addEventListener('click', () => {
         addData(sleepChart)
         let data = document.querySelector('#data').value
-        //goal stuff
+        //sleep goal stuff
         if (sleep.goalIP && data >= sleep.goalHoursPD && sleep.goalDaysLeft !== 0 && sleep.goalPeriod > 0) {
             sleep.goalDaysLeft--
             sleep.goalDaysCompleted++
@@ -343,23 +367,29 @@ document.addEventListener('DOMContentLoaded', () => {
     //remove data function
     function removeData(chart) {
         if (chart.data.labels.length > 0) {
+            //chart isn't empty
+
+            //update log chart
             chart.data.labels.pop()
-        let deleted
-        chart.data.datasets.forEach((dataset) => {
-            deleted = dataset.data.pop()
-        })
-        chart.update()
-        updateStats(deleted, -1)
-        //goal stuff
-        if (sleep.goalIP && deleted >= sleep.goalHoursPD && sleep.goalPeriod > 0 && sleep.goalDaysLeft !== 0) {
-            sleep.goalDaysLeft++
-            sleep.goalDaysCompleted--
-            sleep.goalPeriod++
-            updateGoal()
-        } else if (sleep.goalIP && sleep.goalPeriod > 0) {
-            sleep.goalPeriod++
-            updateGoal()
-        } 
+            let deleted
+            chart.data.datasets.forEach((dataset) => {
+                deleted = dataset.data.pop()
+            })
+            chart.update()
+
+            //update sleep object
+            updateStats(deleted, -1)
+
+            //update sleep goal stuff
+            if (sleep.goalIP && deleted >= sleep.goalHoursPD && sleep.goalPeriod > 0 && sleep.goalDaysLeft !== 0) {
+                sleep.goalDaysLeft++
+                sleep.goalDaysCompleted--
+                sleep.goalPeriod++
+                updateGoal()
+            } else if (sleep.goalIP && sleep.goalPeriod > 0) {
+                sleep.goalPeriod++
+                updateGoal()
+            } 
         }
     }
     //remove data button
@@ -370,21 +400,29 @@ document.addEventListener('DOMContentLoaded', () => {
     //save data function
     function saveData(chart) {
         if (sleep.currentDays == 7) {
+            //chart filled
+
+            //update chart
             chart.data.labels = []
             chart.data.datasets.forEach((dataset => {
                 dataset.data = []
             }))
             chart.update()
+
+            //update sleep object
             sleep.weeklys.push(sleep.currentWeekly)
             sleep.currentDays = 0
             sleep.currentSum = 0.0
             sleep.currentWeekly = 0.0
             sleep.percentage = 0.0
             sleep.sign = '+'
+
+            //update ui
             document.querySelector('#weeklyAvg').textContent = sleep.currentWeekly.toFixed(1)
             document.querySelector('#sign').textContent = sleep.sign
             document.querySelector('#percentage').textContent = sleep.percentage.toFixed(2)
         } else {
+            //chart not filed
             alert('Please fill in with all week values to save data.')
         }
     }
@@ -398,6 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#meditGoal').value = exercise.goal
     */
 
+    //sleep goal chart
     var ctx2 = document.querySelector('#sleepGoalChart').getContext('2d')
     var sleepGoalChart = new Chart(ctx2, {
         type: 'doughnut',
@@ -422,6 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    //e goal chart
     var ctx3 = document.querySelector('#eGoalChart').getContext('2d')
     var eGoalChart = new Chart(ctx3, {
         type: 'doughnut',
@@ -444,6 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //begin btn clicked 
     beginBtn.addEventListener('click', (e) => {
         setTimeout(() => {
+            //circle animations on
             for (let i = 1; i <= 6; i++) {
                 document.querySelector(`#circle${i}`).style.animation = `circle-anim${i} 12s ease-in-out 0s infinite`
             }
