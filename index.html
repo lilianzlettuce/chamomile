@@ -21,15 +21,15 @@
                 <h4 id="login-title">Sign in to Eidetic</h4>
                 <input type="email" placeholder="Email" class="login-input" id="email" />
                 <input type="password" placeholder="Password" class="login-input" id="password">
-                <div id="loginBtn" class="button">Login</div>
+                <button id="loginBtn" class="button">Login</button>
                 <p id="create-acct">Create an account</p>
             </div>
         </div>
 
         <!--goal setting & profile page-->
-        <div id="slideBtn2" class="button">&nbsp ⟷ &nbsp</div>
+        <button id="slideBtn2" class="button">&nbsp ⟷ &nbsp</button>
         <div id="logout-page">
-            <div id="logoutBtn" class="button">Logout</div>
+            <button id="logoutBtn" class="button">Logout</button>
             <div id="logout-flex-1" class="section">
                 <div class="logout-text">Daily Goal</div>
                 <div class="logout-text-small">Time remaining: <span id="num-days">0</span> days</div>
@@ -52,8 +52,8 @@
                     <input type="number" placeholder="2" class="logout-input" id="num-weeks"/> weeks
                 </div>
                 <div id="btn-flexbox">
-                    <div class="usableBtn" id="goalBtn">Start</div>
-                    <div class="unusableBtn" id="restartBtn">Restart</div>
+                    <button class="usableBtn" id="goalBtn">Start</button>
+                    <button class="unusableBtn" id="restartBtn">Restart</button>
                 </div>
             </div>
             <div class="section logout-flex-2">
@@ -107,11 +107,11 @@
             <div class="deco" id="deco1"></div>
             -->
         </div>
-        <div id="slideBtn" class="button">&nbsp ⟷ &nbsp</div>
+        <button id="slideBtn" class="button">&nbsp ⟷ &nbsp</button>
 
         <!--sleep log chart-->
         <div id="section2" class="set2 section">
-            <div class="button" id="monthlyBtn">See Monthly Data →</div>
+            <button class="button" id="monthlyBtn">See Monthly Data →</button>
             <h3 id="title2">Sleep</h3>
             <div id="avg-box">
                 <div class="averages">Weekly average: <span id="weeklyAvg">0.0</span> hrs/day</div>
@@ -121,9 +121,9 @@
             <div id="data-flex-0">
                 <div id="data-flex-1">
                     <input id="data" type="number" placeholder="7">
-                    <div class="button2" id="addDataBtn">Add</div>
-                    <div class="button2" id="removeDataBtn">Delete</div>
-                    <div class="button2" id="saveBtn">Save Data</div>
+                    <button class="button2" id="addDataBtn">Add</button>
+                    <button class="button2" id="removeDataBtn">Delete</button>
+                    <button class="button2" id="saveBtn">Save Data</button>
                 </div>
             </div>
         </div>
@@ -134,7 +134,7 @@
             
             <h1 id="title3">relax;</h1>
             <div id="timer-box">
-                <div id="beginBtn" class="button" onclick="startTimer()">Begin</div>
+                <button id="beginBtn" class="button" onclick="startTimer()">Begin</button>
             </div>
             <div id="timer"></div>
         </div>

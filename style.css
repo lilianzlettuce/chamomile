@@ -351,6 +351,7 @@ div{
 }
 
 .unusableBtn{
+    display: inline-block;
     background-color: rgb(202, 202, 202);
     color: white;
     cursor: auto;
@@ -776,6 +777,12 @@ div{
     color: white;
     border-color: white;
 }
+
+button{
+    outline-width: 0ch;
+    border: none;
+    font-family: inherit;
+}
   
 input{
     background-color: #ffffff;
@@ -789,7 +796,7 @@ input{
     font-weight: 300;
     width: 100px;
     height: 39px;
-    
+    outline-width: 0ch;
 }
 input:hover{
     cursor: pointer;

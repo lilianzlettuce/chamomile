@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let beginBtn = document.querySelector('#beginBtn')
     let circles = document.querySelector('#circles')
 
-    //slide btn clicked-- all ui updates
+    //slide btn clicked-- ui updates
     slideBtn.addEventListener('click', (e) => {
         if (side === 1) {
             slider.classList.remove('slideL')
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let logoutPage = document.querySelector('#logout-page')
     let vertical = 1
 
-    //slideBtn2 clicked-- all ui updates
+    //slideBtn2 clicked-- ui updates
     slideBtn2.addEventListener('click', (e) => {
         if (vertical === 1) {
             logoutPage.classList.remove('slideUp')
