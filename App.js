@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //autofill so ppl can test out
+    //autofill 
     document.querySelector('#email').value = 'jojo@gmail.com'
     document.querySelector('#password').value = 'password'
 
@@ -71,19 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         if (greaterThanZero && parseFloat(sleepInput.value) <= 24 && parseInt(numWeeks.value) * 7 >= parseInt(numTimes.value)) {
+            //ui updates
             for (let i = 0; i < inputArr.length; i++) {
                 let input = inputArr[i]
                 input.disabled = 'disabled'
             }
-            sleep.goalIP = true
-            sleep.goalHoursPD = parseFloat(sleepInput.value)
-            sleep.goalDaysLeft = parseInt(numTimes.value)
-            sleep.goalPeriod = parseInt(numWeeks.value) * 7
             numDays.textContent = sleep.goalPeriod
             goalBtn.classList.remove('usableBtn')
             goalBtn.classList.add('unusableBtn')
             restartBtn.classList.add('usableBtn')
             restartBtn.classList.remove('unusableBtn')
+            
+            //sleep object updates
+            sleep.goalIP = true
+            sleep.goalHoursPD = parseFloat(sleepInput.value)
+            sleep.goalDaysLeft = parseInt(numTimes.value)
+            sleep.goalPeriod = parseInt(numWeeks.value) * 7
+
             updateGoal()
         } else {
             alert('Please enter valid values.')
@@ -93,10 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
     //restart goal btn
     let restartBtn = document.querySelector('#restartBtn')
     restartBtn.addEventListener('click', () => {
+        //ui updates
         goalBtn.classList.add('usableBtn')
         goalBtn.classList.remove('unusableBtn')
         restartBtn.classList.remove('usableBtn')
         restartBtn.classList.add('unusableBtn')
+
+        //
         sleepGoalChart.chart.data.datasets.forEach((dataset => {
             dataset.data = [7, 0]
         }))
@@ -407,6 +414,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }]
         },
         options: {
+            legend: {
+                labels: {
+                    fontColor: 'black'
+                }
+            }
         }
     })
 
