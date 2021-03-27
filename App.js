@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let numTimes = document.querySelector('#sleep-num-times')
     let numWeeks = document.querySelector('#sleep-num-weeks')
     let inputArr = [sleepInput, eInput, numTimes, numWeeks]
-    let numDays = document.querySelector('#num-days')
+    let sleepNumDays = document.querySelector('#sleep-num-days')
+    let hoursPD = document.querySelector('#hoursPD')
 
     //start goal btn
     let goalBtn = document.querySelector('#goalBtn')
@@ -93,7 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let input = inputArr[i]
                 input.disabled = 'disabled'
             }
-            numDays.textContent = sleep.goalPeriod
+            sleepNumDays.textContent = sleep.goalPeriod
+            hoursPD.textContent = sleep.goalHoursPD
             goalBtn.classList.remove('usableBtn')
             goalBtn.classList.add('unusableBtn')
             restartBtn.classList.add('usableBtn')
@@ -118,7 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
             inputArr[i].value = ''
             inputArr[i].disabled = ''
         }
-        numDays.textContent = '0'
+        sleepNumDays.textContent = '0'
+        hoursPD.textContent = '0'
         document.querySelector('#sleep-goal-percent').textContent = '0.0'
 
         //reinitialize sleep goal chart
@@ -137,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //update goal stuff 
     function updateGoal() {
-        numDays.textContent = sleep.goalPeriod  //time left to complete goal
+        sleepNumDays.textContent = sleep.goalPeriod  //time left to complete goal
 
         let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100    //percent completed
         document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
@@ -456,22 +459,21 @@ document.addEventListener('DOMContentLoaded', () => {
             datasets: [{
                 data: [4, 0],
                 backgroundColor: [
+                    'rgb(255, 255, 255)',
                     'rgb(255, 255, 255, 0.7)',
-                    'rgb(255, 203, 154)',
-                    'rgb(255, 255, 255, 0.1)',
-                    'rgb(255, 166, 83)',
                 ],
                 borderColor: [
-                    'rgb(255, 166, 83)',
-                    'rgb(255, 255, 255)',
+                    'rgb(255, 166, 83, 0)',
+                    'rgb(255, 166, 83, 0)',
                 ],
-                borderWidth: 1
+                borderWidth: 4
             }]
         },
         options: {
             legend: {
                 labels: {
-                    fontColor: 'white'
+                    fontColor: 'white',
+                    fontSize: 15,
                 }
             }
         }
