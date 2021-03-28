@@ -187,44 +187,47 @@ div{
     background-color: var(--main);
 }
 
-#slideBtn2{
+#slideUpBtn{
     z-index: 450;
     position: absolute;
-    top: -25px;
-    left: 47vw;
-    transform: rotate(90deg);
+    top: 92vh;
+    left: 48.7vw;
     color: var(--main);
-    border-color: var(--main);
-    background-color: white;
+    font-size: 2.7rem;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .3s ease-in;
 }
-#slideBtn2:active{
+#slideUpBtn:active{
     color:white;
+}
+
+#filler{
+    background-color: white;
+    position: absolute;
+    width: 100vw;
+    height: 25px;
+    top: 96vh;
+    left: 0vw;
+}
+
+#slideDownBtn{
+    position: absolute;
+    top: 96vh;
+    left: 48.2vw;
+    color: var(--main);
+    font-size: 2.7rem;
+    padding: 3rem 1rem 1rem 1rem;
+    border-radius: 50px;
+    background-color: white;
+    border: 3px solid var(--main);
+    transition: .3s ease-in;
+    cursor: pointer;
+}
+#slideDownBtn:active{
+    color:white;
+    background-color: var(--main);
     border-color: white;
-    background-color: var(--main) !important;
-}
-.slideDownBtn{
-    animation: slideD-anim2 1.5s ease-in-out 0s;
-    animation-fill-mode: forwards;
-}
-@keyframes slideD-anim2{
-    0%{
-        top: -25px;
-    }
-    100%{
-        top: 95vh;
-    }
-}
-.slideUpBtn{
-    animation: slideU-anim2 1.5s ease-in-out 0s;
-    animation-fill-mode: forwards;
-}
-@keyframes slideU-anim2{
-    0%{
-        top: 95vh;
-    }
-    100%{
-        top: -25px;
-    }
 }
 
 #logout-page{
@@ -249,8 +252,6 @@ div{
     0%{
         top: -100vh;
     }
-    50%{
-    }
     100%{
         top: 0vh;
     }
@@ -262,8 +263,6 @@ div{
 @keyframes slideMidTop-anim{
     0%{
         top: 0vh;
-    }
-    50%{
     }
     100%{
         top: -100vh;
