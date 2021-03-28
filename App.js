@@ -208,25 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     //switching between goal setting page and logging chart page
-    let slideBtn2 = document.querySelector('#slideBtn2')
+    let slideDown = document.querySelector('#slideDownBtn')
+    let slideUp = document.querySelector('#slideUpBtn')
     let logoutPage = document.querySelector('#logout-page')
-    let vertical = 1
 
-    //slideBtn2 clicked-- ui updates for sliding up and down
-    slideBtn2.addEventListener('click', (e) => {
-        if (vertical === 1) {
-            logoutPage.classList.remove('slideMidTop')
-            logoutPage.classList.add('slideTopMid')
-            slideBtn2.classList.remove('slideUpBtn')
-            slideBtn2.classList.add('slideDownBtn')
-            vertical = 2
-        } else {
-            logoutPage.classList.add('slideMidTop')
-            logoutPage.classList.remove('slideTopMid')
-            slideBtn2.classList.add('slideUpBtn')
-            slideBtn2.classList.remove('slideDownBtn')
-            vertical = 1
-        }
+    //slideDown clicked-- ui updates for sliding up and down
+    slideDown.addEventListener('click', () => {
+        logoutPage.classList.remove('slideMidTop')
+        logoutPage.classList.add('slideTopMid')
+    })
+    slideUp.addEventListener('click', () => {
+        logoutPage.classList.add('slideMidTop')
+        logoutPage.classList.remove('slideTopMid')
     })
 
     //seeMonthly btn clicked-- slide to the right
