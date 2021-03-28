@@ -699,9 +699,6 @@ div{
 #section1{
     z-index: 10;
     transition: 1s ease-in;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
     color: white;
 }
 
@@ -710,7 +707,6 @@ div{
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin: 0 0 4rem 0;
 }
 
 .big-number{
@@ -720,7 +716,7 @@ div{
 #SPG{
     font-size: 3.5rem;
     font-weight: 300;
-    top: -39%;
+    top: -43%;
 }
 
 #sleepGoalChart{
