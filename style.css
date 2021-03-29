@@ -215,19 +215,20 @@ div{
     position: absolute;
     top: 96vh;
     left: 48.2vw;
-    color: var(--main);
     font-size: 2.7rem;
     padding: 3rem 1rem 1rem 1rem;
     border-radius: 50px;
-    background-color: white;
-    border: 3px solid var(--main);
     transition: .3s ease-in;
     cursor: pointer;
+    background-color: white;
+    border: 3px solid var(--main);
+    color: var(--main);
+    
 }
-#slideDownBtn:active{
+#slideDownBtn:active,#slideDownBtn:focus{
     color:white;
     background-color: var(--main);
-    border-color: white;
+    border: 3px solid white;
 }
 
 #logout-page{

@@ -54,17 +54,23 @@ document.addEventListener('DOMContentLoaded', () => {
     //inputs on goal setting page
     let sleepInput = document.querySelector('#sleepGoal')
     let eInput = document.querySelector('#eGoal')
-    let numTimes = document.querySelector('#sleep-num-times')
-    let numWeeks = document.querySelector('#sleep-num-weeks')
-    let inputArr = [sleepInput, eInput, numTimes, numWeeks]
+    let sleepNumTimes = document.querySelector('#sleep-num-times')
+    let sleepNumWeeks = document.querySelector('#sleep-num-weeks')
+    let inputArr = [sleepInput, eInput, sleepNumTimes, sleepNumWeeks]
+    
     let sleepNumDays = document.querySelector('#sleep-num-days')
     let hoursPD = document.querySelector('#hoursPD')
+
+    //initialize input values
+    sleepInput.value = 7
+    sleepNumTimes.value = 7
+    sleepNumWeeks.value = 2
 
     //start goal btn
     let goalBtn = document.querySelector('#goalBtn')
     goalBtn.addEventListener('click', () => {
-        console.log(numTimes.value)
-        console.log(numWeeks.value)
+        console.log(sleepNumTimes.value)
+        console.log(sleepNumWeeks.value)
         console.log(sleepInput.value)
         console.log(eInput.value)
 
@@ -81,13 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         //check to see if all values valid
-        if (greaterThanZero && parseFloat(sleepInput.value) <= 24 && parseInt(numWeeks.value) * 7 >= parseInt(numTimes.value)) {
+        if (greaterThanZero && parseFloat(sleepInput.value) <= 24 && parseInt(sleepNumWeeks.value) * 7 >= parseInt(sleepNumTimes.value)) {
 
             //sleep object updates
             sleep.goalIP = true
             sleep.goalHoursPD = parseFloat(sleepInput.value)
-            sleep.goalDaysLeft = parseInt(numTimes.value)
-            sleep.goalPeriod = parseInt(numWeeks.value) * 7
+            sleep.goalDaysLeft = parseInt(sleepNumTimes.value)
+            sleep.goalPeriod = parseInt(sleepNumWeeks.value) * 7
 
             //ui updates
             for (let i = 0; i < inputArr.length; i++) {
@@ -122,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         sleepNumDays.textContent = '0'
         hoursPD.textContent = '0'
-        document.querySelector('#sleep-goal-percent').textContent = '0.0'
+        document.querySelector('#SPG').textContent = '0.0'
 
         //reinitialize sleep goal chart
         sleepGoalChart.chart.data.datasets.forEach((dataset => {
@@ -143,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sleepNumDays.textContent = sleep.goalPeriod  //time left to complete goal
 
         let percent = sleep.goalDaysCompleted / (sleep.goalDaysCompleted + sleep.goalDaysLeft) * 100    //percent completed
-        document.querySelector('#sleep-goal-percent').textContent = percent.toFixed(1).toString()
+        document.querySelector('#SPG').textContent = percent.toFixed(1).toString()
 
         //update sleep goal chart
         sleepGoalChart.chart.data.datasets.forEach((dataset => {
@@ -456,10 +462,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     'rgb(255, 255, 255, 0.7)',
                 ],
                 borderColor: [
-                    'rgb(255, 166, 83, 0)',
-                    'rgb(255, 166, 83, 0)',
+                    'rgb(255, 166, 83)',
+                    'rgb(255, 166, 83)',
                 ],
-                borderWidth: 4
+                borderWidth: 3
             }]
         },
         options: {
