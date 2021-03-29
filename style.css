@@ -707,6 +707,10 @@ div{
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: -3rem;
 }
 
 .big-number{
