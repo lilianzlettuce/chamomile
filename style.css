@@ -83,6 +83,7 @@ div{
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 #login-deco{
@@ -273,6 +274,7 @@ div{
     position: absolute;
     top: 3vh;
     left: 2vw;
+    display: none;
 }
 
 .logout-text {
@@ -327,6 +329,9 @@ div{
     position: relative;
     top: -43%;
     text-align: center;
+    font-size: 3.5rem;
+    font-weight: 300;
+    top: -43%;
 }
 
 .usableBtn{
@@ -715,12 +720,6 @@ div{
 
 .big-number{
     font-size: 5rem;
-}
-
-#SPG{
-    font-size: 3.5rem;
-    font-weight: 300;
-    top: -43%;
 }
 
 #sleepGoalChart{
