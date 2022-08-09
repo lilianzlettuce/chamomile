@@ -11,40 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     //autofill 
-    document.querySelector('#email').value = 'jojo@gmail.com'
+    document.querySelector('#email').value = 'example@gmail.com'
     document.querySelector('#password').value = 'password'
 
     //login btn function
     document.querySelector('#loginBtn').addEventListener('click', () => {
         let email = document.querySelector('#email').value
         let pass = document.querySelector('#password').value
-        firebase.auth().signInWithEmailAndPassword(email, pass)
-            .then((userCredential) => {
-                //signed in
-                let user = userCredential.user;
-
-                //ui updates
-                let loginPage = document.querySelector('#login-page')
-                loginPage.classList.add('disappearSlow')
-                loginPage.classList.remove('appearSlow')
-                document.querySelector('#email').value = ''
-                document.querySelector('#password').value = ''
-                setTimeout(() => {
-                    loginPage.style.zIndex = -10
-                }, 1500)
-            })
-            .catch(function (error) {
-                // handle errors
-                var errorCode = error.code
-                var errorMessage = error.message
-        
-                window.alert('Error : ' + errorMessage)
-            })
+        //ui updates
+        let loginPage = document.querySelector('#login-page')
+        loginPage.classList.add('disappearSlow')
+        loginPage.classList.remove('appearSlow')
+        document.querySelector('#email').value = ''
+        document.querySelector('#password').value = ''
+        setTimeout(() => {
+            loginPage.style.zIndex = -10
+        }, 1500)
     })
 
     //logout function
     document.querySelector('#logoutBtn').addEventListener('click', () => {
-        firebase.auth().signOut()
         let loginPage = document.querySelector('#login-page')
         loginPage.classList.remove('disappearSlow')
         loginPage.classList.add('appearSlow')
